@@ -1,3 +1,4 @@
+using System;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core;
@@ -25,16 +26,16 @@ public partial class App : Application
             // Avoid duplicate validations from both Avalonia and the CommunityToolkit. 
             // More info: https://docs.avaloniaui.net/docs/guides/development-guides/data-validation#manage-validationplugins
             DisableAvaloniaDataAnnotationValidation();
-            desktop.MainWindow = new Login
+            desktop.MainWindow = new LoginWindow
             {
-                DataContext = new LoginViewModel()
+                DataContext = getLoginViewModel()
             };
         }
         else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
         {
-            singleViewPlatform.MainView = new MainView
+            singleViewPlatform.MainView = new LoginView()
             {
-                DataContext = new LoginViewModel()
+                DataContext = getLoginViewModel()
             };
         }
 
@@ -52,5 +53,11 @@ public partial class App : Application
         {
             BindingPlugins.DataValidators.Remove(plugin);
         }
+    }
+
+    private LoginViewModel getLoginViewModel()
+    {
+        var vm = new LoginViewModel();
+        return vm;
     }
 }

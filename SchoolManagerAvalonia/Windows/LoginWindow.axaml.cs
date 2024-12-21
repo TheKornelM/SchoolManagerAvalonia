@@ -5,9 +5,9 @@ using SchoolManagerViewModel;
 
 namespace SchoolManagerAvalonia.Views.Windows;
 
-public partial class Login : Window
+public partial class LoginWindow : Window
 {
-    public Login()
+    public LoginWindow()
     {
         InitializeComponent();
         DataContext = new LoginViewModel();

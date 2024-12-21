@@ -26,4 +26,12 @@
       <ProjectReference Include="..\SchoolManagerModel\SchoolManagerModel.csproj" />
       <ProjectReference Include="..\SchoolManagerViewModel\SchoolManagerViewModel.csproj" />
     </ItemGroup>
+
+    <ItemGroup>
+      <UpToDateCheckInput Remove="Views\Windows\Login.axaml" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <AdditionalFiles Include="Windows\Login.axaml" />
+    </ItemGroup>
 </Project>

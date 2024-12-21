@@ -1,12 +1,13 @@
-﻿<Window xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:resx="clr-namespace:SchoolManagerModel.Resources;assembly=SchoolManagerModel"
-        xmlns:vm="clr-namespace:SchoolManagerViewModel;assembly=SchoolManagerViewModel"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        x:Class="SchoolManagerAvalonia.Views.Windows.Login"
-        Title="Login" x:DataType="vm:LoginViewModel">
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:SchoolManagerViewModel;assembly=SchoolManagerViewModel"
+             xmlns:resx="clr-namespace:SchoolManagerModel.Resources;assembly=SchoolManagerModel"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="SchoolManagerAvalonia.Views.LoginView"
+             x:DataType="vm:LoginViewModel"
+             >
        
        <Design.DataContext>
               <vm:LoginViewModel></vm:LoginViewModel>
@@ -70,4 +71,4 @@
                 Command="{Binding LoginUserCommand}"
                 />
     </Grid>
-</Window>
+</UserControl>
