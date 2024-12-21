@@ -6,6 +6,8 @@ using System.Linq;
 using Avalonia.Markup.Xaml;
 using SchoolManagerAvalonia.ViewModels;
 using SchoolManagerAvalonia.Views;
+using SchoolManagerAvalonia.Views.Windows;
+using SchoolManagerViewModel;
 
 namespace SchoolManagerAvalonia;
 
@@ -23,16 +25,16 @@ public partial class App : Application
             // Avoid duplicate validations from both Avalonia and the CommunityToolkit. 
             // More info: https://docs.avaloniaui.net/docs/guides/development-guides/data-validation#manage-validationplugins
             DisableAvaloniaDataAnnotationValidation();
-            desktop.MainWindow = new MainWindow
+            desktop.MainWindow = new Login
             {
-                DataContext = new MainViewModel()
+                DataContext = new LoginViewModel()
             };
         }
         else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
         {
             singleViewPlatform.MainView = new MainView
             {
-                DataContext = new MainViewModel()
+                DataContext = new LoginViewModel()
             };
         }
 

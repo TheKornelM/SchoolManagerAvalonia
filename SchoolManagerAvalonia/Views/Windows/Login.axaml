@@ -1,0 +1,73 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:resx="clr-namespace:SchoolManagerModel.Resources;assembly=SchoolManagerModel"
+        xmlns:vm="clr-namespace:SchoolManagerViewModel;assembly=SchoolManagerViewModel"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="SchoolManagerAvalonia.Views.Windows.Login"
+        Title="Login" x:DataType="vm:LoginViewModel">
+       
+       <Design.DataContext>
+              <vm:LoginViewModel></vm:LoginViewModel>
+       </Design.DataContext>
+       
+       <Grid Margin="30,30,30,30"
+             HorizontalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Label Content="{x:Static resx:UI.Login}"
+               HorizontalAlignment="Center"
+               Grid.Row="0"
+               VerticalAlignment="Top"
+               FontSize="48" />
+        <Label Content="{x:Static resx:UI.Username}"
+               HorizontalAlignment="Left"
+               Grid.Row="2"
+               VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left"
+                 Grid.Row="3"
+                 TextWrapping="Wrap"
+                 VerticalAlignment="Top"
+                 Width="315"
+                 Height="31"
+                 FontSize="20"
+                 RenderTransformOrigin="0.5,0.5"
+                 Text="{Binding Username}"
+                 />
+        <Label Content="{x:Static resx:UI.Password}"
+               HorizontalAlignment="Left"
+               Grid.Row="5"
+               VerticalAlignment="Top"
+               FontSize="24" />
+        <TextBox HorizontalAlignment="Left"
+                     Grid.Row="6"
+                     VerticalAlignment="Top"
+                     Width="315"
+                     Height="31"
+                     FontSize="20"
+                     Name="PasswordBox"
+                     PasswordChar="*"
+                     RevealPassword="True"
+                     Text="{Binding Password}"
+                     />
+        <Button Content="{x:Static resx:UI.Login}"
+                HorizontalAlignment="Center"
+                Grid.Row="8"
+                VerticalAlignment="Top"
+                Height="79"
+                Width="230"
+                FontSize="24"
+                Command="{Binding LoginUserCommand}"
+                />
+    </Grid>
+</Window>
