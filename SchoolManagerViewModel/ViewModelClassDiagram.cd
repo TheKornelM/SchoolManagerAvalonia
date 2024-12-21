@@ -1,0 +1,298 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="SchoolManagerViewModel.AddUserViewModel">
+    <Position X="16.25" Y="11.5" Width="4.75" />
+    <InheritanceLine Type="SchoolManagerViewModel.ViewModelBase" ManuallyRouted="true">
+      <Path>
+        <Point X="22.5" Y="10.498" />
+        <Point X="22.5" Y="10.87" />
+        <Point X="18.625" Y="10.87" />
+        <Point X="18.625" Y="11.5" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>QAABAFAAAEEAAEAJAAIAADAAATAACQAAAAEAAUAABBg=</HashCode>
+      <FileName>AddUserViewModel.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="User" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="SchoolManagerViewModel.ViewModelBase">
+    <Position X="20.5" Y="8.75" Width="4" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAAAAAAAIAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModelBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SchoolManagerViewModel.AddSubjectViewModel">
+    <Position X="12" Y="12" Width="3.75" />
+    <AssociationLine Name="AddSubjectCommand" Type="SchoolManagerViewModel.Commands.AddSubjectCommand">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.06" Y="0.42" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>BAAAggAAAAEABBIAAAQAAAAAABEAAAAAgAAMAiAAAAA=</HashCode>
+      <FileName>AddSubjectViewModel.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="AddSubjectCommand" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="SchoolManagerViewModel.AdminClassesViewModel">
+    <Position X="21.5" Y="15.5" Width="4.25" />
+    <InheritanceLine Type="SchoolManagerViewModel.ClassesViewModelBase" ManuallyRouted="true">
+      <Path>
+        <Point X="25.5" Y="14.213" />
+        <Point X="25.5" Y="14.803" />
+        <Point X="23.625" Y="14.803" />
+        <Point X="23.625" Y="15.5" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AQAAAAQKICAgAAAAAAIAEAAEABAAAAgAAAAAAAAAABA=</HashCode>
+      <FileName>AdminClassesViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SchoolManagerViewModel.ClassesViewModelBase">
+    <Position X="23.5" Y="11.5" Width="4" />
+    <InheritanceLine Type="SchoolManagerViewModel.ViewModelBase" ManuallyRouted="true">
+      <Path>
+        <Point X="22.5" Y="10.498" />
+        <Point X="22.5" Y="10.862" />
+        <Point X="25.5" Y="10.862" />
+        <Point X="25.5" Y="11.5" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEAAAAACIAAAAAAABAAAQAAAAAAAAAAAAA=</HashCode>
+      <FileName>ClassesViewModelBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SchoolManagerViewModel.DetailedMarkViewModel">
+    <Position X="29.25" Y="16.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAAAAAAAAgAAAACAAAAAAAAAAAAAAAACA=</HashCode>
+      <FileName>DetailedMarkViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SchoolManagerViewModel.MarkViewModel">
+    <Position X="29.5" Y="12" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAwAAJAQAAAAAAAgIAAAAAAACQAAAABAAAAAAEAAAA=</HashCode>
+      <FileName>EntityViewModels\MarkViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SchoolManagerViewModel.LanguageSelectViewModel">
+    <Position X="13" Y="5.5" Width="4" />
+    <InheritanceLine Type="SchoolManagerViewModel.ViewModelBase" ManuallyRouted="true" FixedFromPoint="true">
+      <Path>
+        <Point X="22.5" Y="8.75" />
+        <Point X="22.5" Y="8.289" />
+        <Point X="15" Y="8.289" />
+        <Point X="15" Y="7.828" />
+      </Path>
+    </InheritanceLine>
+    <AssociationLine Name="ShowLoginCommand" Type="SchoolManagerViewModel.Commands.ShowLoginCommand">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.06" Y="0.317" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAAABAAAAAAAAAAAAgAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>LanguageSelectViewModel.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="ShowLoginCommand" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="SchoolManagerViewModel.LoginViewModel">
+    <Position X="18" Y="4.25" Width="3.25" />
+    <InheritanceLine Type="SchoolManagerViewModel.ViewModelBase" ManuallyRouted="true">
+      <Path>
+        <Point X="22.5" Y="8.75" />
+        <Point X="22.5" Y="8.289" />
+        <Point X="19.625" Y="8.289" />
+        <Point X="19.625" Y="7.732" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAQAEAQAAAAAAAAACQgAAAAAAAAAAEACAAIAAAAAAAA=</HashCode>
+      <FileName>LoginViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SchoolManagerViewModel.RosterViewModel">
+    <Position X="22.25" Y="4.5" Width="4" />
+    <InheritanceLine Type="SchoolManagerViewModel.ViewModelBase" ManuallyRouted="true" FixedFromPoint="true">
+      <Path>
+        <Point X="22.5" Y="8.75" />
+        <Point X="22.5" Y="8.31" />
+        <Point X="24.25" Y="8.31" />
+        <Point X="24.25" Y="7.598" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAgABAAAEAAAAAAAAEAAAAAAgAAAAQgAAAAAAAAAA=</HashCode>
+      <FileName>RosterViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SchoolManagerViewModel.SelectClassViewModel">
+    <Position X="26.25" Y="16" Width="2.5" />
+    <InheritanceLine Type="SchoolManagerViewModel.ClassesViewModelBase" ManuallyRouted="true">
+      <Path>
+        <Point X="25.5" Y="14.213" />
+        <Point X="25.5" Y="14.8" />
+        <Point X="27.5" Y="14.8" />
+        <Point X="27.5" Y="16" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>SelectClassViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SchoolManagerViewModel.StudentMarksViewModel">
+    <Position X="27.5" Y="5.5" Width="4" />
+    <InheritanceLine Type="SchoolManagerViewModel.ViewModelBase" ManuallyRouted="true" FixedFromPoint="true">
+      <Path>
+        <Point X="22.5" Y="8.75" />
+        <Point X="22.5" Y="8.302" />
+        <Point X="29.5" Y="8.302" />
+        <Point X="29.5" Y="7.636" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAAAAAAAIAAAAAAAAAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>StudentMarksViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SchoolManagerViewModel.Commands.ShowLoginCommand">
+    <Position X="13" Y="2" Width="4" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAACAAQAAFAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Commands\ShowLoginCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.279" />
+  </Class>
+  <Class Name="SchoolManagerViewModel.Commands.SelectAllSubjectsCommand">
+    <Position X="11.75" Y="20.5" Width="4" />
+    <AssociationLine Name="_viewModel" Type="SchoolManagerViewModel.AddUserViewModel" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="15.75" Y="21.5" />
+        <Point X="15.926" Y="21.5" />
+        <Point X="15.926" Y="11.938" />
+        <Point X="16.25" Y="11.938" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAQQAEAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Commands\SelectAllSubjectsCommand.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_viewModel" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SchoolManagerViewModel.Commands.AddClassCommand">
+    <Position X="21.5" Y="20.5" Width="4.25" />
+    <AssociationLine Name="_classesViewModel" Type="SchoolManagerViewModel.AdminClassesViewModel">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.11" Y="0.207" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAACAAQAAEAAAAAACAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Commands\AddClassCommand.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="_classesViewModel" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SchoolManagerViewModel.Commands.AddSubjectCommand">
+    <Position X="12" Y="17.25" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAQAAEAAAAAACAAAAAAAIACAAAAAAAA=</HashCode>
+      <FileName>Commands\AddSubjectCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SchoolManagerViewModel.Commands.AddUserCommand">
+    <Position X="12.25" Y="23" Width="3.5" />
+    <AssociationLine Name="_addUserViewModel" Type="SchoolManagerViewModel.AddUserViewModel" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="15.75" Y="24" />
+        <Point X="17.5" Y="24" />
+        <Point X="17.5" Y="17.867" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.015" Y="2.567" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAACAAQAAEAAAAAACAAAAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>Commands\AddUserCommand.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_addUserViewModel" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SchoolManagerViewModel.Commands.LoginUserCommand">
+    <Position X="17.75" Y="1.75" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAQQAEAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Commands\LoginUserCommand.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_viewModel" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SchoolManagerViewModel.EntityViewModels.ValidatedUserViewModel">
+    <Position X="17.75" Y="18.25" Width="3.5" />
+    <InheritanceLine Type="SchoolManagerViewModel.ViewModelBase" ManuallyRouted="true">
+      <Path>
+        <Point X="22.5" Y="10.497" />
+        <Point X="22.5" Y="10.884" />
+        <Point X="21.248" Y="10.884" />
+        <Point X="21.248" Y="18.058" />
+        <Point X="19.5" Y="18.058" />
+        <Point X="19.5" Y="18.25" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>CA0ABEAAACEAAAAIAQG4AQAAAAAAAiECAIIAAIAEKAk=</HashCode>
+      <FileName>EntityViewModels\ValidatedUserViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SchoolManagerViewModel.FilterUsersViewModel">
+    <Position X="26.25" Y="19.5" Width="4.25" />
+    <InheritanceLine Type="SchoolManagerViewModel.ViewModelBase" ManuallyRouted="true" FixedToPoint="true">
+      <Path>
+        <Point X="22.5" Y="10.497" />
+        <Point X="22.5" Y="10.863" />
+        <Point X="28.938" Y="10.863" />
+        <Point X="28.938" Y="19.5" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAQAGEAAgAAAAAAAQAACYAAAAAEAIAAAAAAAAAABAE=</HashCode>
+      <FileName>FilterUsersViewModel.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="ResetUserFilterCommand" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="SchoolManagerViewModel.Commands.ResetUserFilterCommand">
+    <Position X="21.75" Y="23" Width="4" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAQCAEAAAAAACAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Commands\ResetUserFilterCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

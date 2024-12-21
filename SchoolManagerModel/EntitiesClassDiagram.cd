@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="SchoolManagerModel.Exceptions.ClassExistsException">
+    <Position X="10.5" Y="6" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Exceptions\ClassExistsException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SchoolManagerModel.Entities.UserModel.Admin">
+    <Position X="2.75" Y="3.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAADAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\UserModel\Admin.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SchoolManagerModel.Entities.UserModel.Student">
+    <Position X="7.25" Y="9.25" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAADAEAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\UserModel\Student.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SchoolManagerModel.Entities.UserModel.Teacher">
+    <Position X="1.75" Y="5.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAADAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\UserModel\Teacher.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SchoolManagerModel.Entities.UserModel.User">
+    <Position X="4.25" Y="6" Width="5.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAEAAACAAAAAAAQAAAAQAAAAAAAACAAAAAAAAAAg=</HashCode>
+      <FileName>Entities\UserModel\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SchoolManagerModel.Entities.AssignedSubject">
+    <Position X="5" Y="3.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAACAABAQAAAAAAAAIAAAAAAAAAAAAAAAACAAAAAAAA=</HashCode>
+      <FileName>Entities\AssignedSubject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SchoolManagerModel.Entities.Class">
+    <Position X="4.25" Y="9.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Class.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SchoolManagerModel.Entities.Lesson">
+    <Position X="11.75" Y="3.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAACAQAAAAAAAAABAAAAAAAAAI=</HashCode>
+      <FileName>Entities\Lesson.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SchoolManagerModel.Entities.Mark">
+    <Position X="11" Y="8.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAiAABAQAAAAAAAAIAAAAAAAAAAAAABAAAAAAEAAAA=</HashCode>
+      <FileName>Entities\Mark.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SchoolManagerModel.Entities.RoleRecord">
+    <Position X="1.75" Y="8.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAACAAIAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\RoleRecord.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SchoolManagerModel.Entities.Subject">
+    <Position X="7.75" Y="3" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAECAAAAAAAAAAAAAAIAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Subject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="SchoolManagerModel.Entities.Role">
+    <Position X="2" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAQAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Role.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

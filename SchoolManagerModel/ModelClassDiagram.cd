@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="SchoolManagerModel.Persistence.ClassDatabase" BaseTypeListCollapsed="true">
+    <Position X="23.25" Y="14.25" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAACAAAABAAAACAAAQAAAAAAAAAAAAA=</HashCode>
+      <FileName>Persistence\ClassDatabase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SchoolManagerModel.Persistence.SchoolDbContext">
+    <Position X="12" Y="6.25" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Persistence\SchoolDbContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SchoolManagerModel.Persistence.SchoolDbContextBase">
+    <Position X="12" Y="2" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>AAIAAGAAAwEAAAAAAAAAAQAAEgAAAAAAAAQAAgAAAAA=</HashCode>
+      <FileName>Persistence\SchoolDbContextBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SchoolManagerModel.Persistence.SubjectDatabase" BaseTypeListCollapsed="true">
+    <Position X="7.5" Y="14.75" Width="5.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAAAABBAAAAAAAAAAAAAAQAEIAAAg=</HashCode>
+      <FileName>Persistence\SubjectDatabase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SchoolManagerModel.Persistence.TeacherDatabase" BaseTypeListCollapsed="true">
+    <Position X="13.5" Y="14.25" Width="4.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAhAAAAAAAAQAAAAAECAAEAAAAAAAAAAA=</HashCode>
+      <FileName>Persistence\TeacherDatabase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SchoolManagerModel.Persistence.UserDatabase" BaseTypeListCollapsed="true">
+    <Position X="18.75" Y="15.5" Width="4" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAFQAAAAgAAEAAAAICAAAIAAAAAAAAQAQAABQA=</HashCode>
+      <FileName>Persistence\UserDatabase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SchoolManagerModel.Managers.ClassManager">
+    <Position X="23.25" Y="9.5" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAACAAAAAAAAACAAAQAAAAAAAAAAAAA=</HashCode>
+      <FileName>Managers\ClassManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SchoolManagerModel.Managers.LoginManager">
+    <Position X="18" Y="5.75" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Managers\LoginManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SchoolManagerModel.Managers.SubjectManager">
+    <Position X="7.5" Y="9" Width="5.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAhAAAAAABAAAAAAAAAAAAABAQAEIAAAA=</HashCode>
+      <FileName>Managers\SubjectManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SchoolManagerModel.Managers.TeacherManager">
+    <Position X="13.5" Y="10" Width="4.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>Managers\TeacherManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SchoolManagerModel.Managers.UserManager">
+    <Position X="18.75" Y="8" Width="4" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAVQAAAAAAAEAgAAICAAAIAAAAAAAAQAAgABQA=</HashCode>
+      <FileName>Managers\UserManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="SchoolManagerModel.Persistence.IAsyncClassDataHandler">
+    <Position X="23.5" Y="12" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAACAAAABAAAACAAAQAAAAAAAAAAAAA=</HashCode>
+      <FileName>Persistence\IAsyncClassDataHandler.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SchoolManagerModel.Persistence.IAsyncSubjectDataHandler">
+    <Position X="8" Y="12" Width="4.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAAAABBAAAAAAAAAAAAAAQAEIAAAg=</HashCode>
+      <FileName>Persistence\IAsyncSubjectDataHandler.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SchoolManagerModel.Persistence.IAsyncTeacherDataHandler">
+    <Position X="13.75" Y="12" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAhAAAAAAAAQAAAAAEAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>Persistence\IAsyncTeacherDataHandler.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SchoolManagerModel.Persistence.IAsyncUserDataHandler">
+    <Position X="19" Y="11.75" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAFQAAAAgAAEAAAAICAAAIAAAAAAAAQAQAABQA=</HashCode>
+      <FileName>Persistence\IAsyncUserDataHandler.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
