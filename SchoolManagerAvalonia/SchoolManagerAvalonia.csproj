@@ -19,6 +19,7 @@
             <IncludeAssets Condition="'$(Configuration)' != 'Debug'">None</IncludeAssets>
             <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
         </PackageReference>
+        <PackageReference Include="AvaloniaDialogs" />
         <PackageReference Include="CommunityToolkit.Mvvm" />
 		<PackageVersion Include="DialogHost.Avalonia" Version="0.9.0-preview3" />
 		<PackageReference Include="DialogHost.Avalonia" />

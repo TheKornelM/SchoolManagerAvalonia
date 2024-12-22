@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
+using AvaloniaDialogs.Views;
 using SchoolManagerAvalonia.Views;
 using SchoolManagerAvalonia.Views.Windows;
 using SchoolManagerModel.Persistence;
@@ -21,6 +22,8 @@ public partial class App : Application
 
     public override void OnFrameworkInitializationCompleted()
     {
+        base.OnFrameworkInitializationCompleted();
+
         var view = new LoginView()
         {
             DataContext = getLoginViewModel()
@@ -40,8 +43,6 @@ public partial class App : Application
         {
             singleViewPlatform.MainView = view;
         }
-
-        base.OnFrameworkInitializationCompleted();
     }
 
     private void DisableAvaloniaDataAnnotationValidation()
@@ -60,7 +61,17 @@ public partial class App : Application
     private LoginViewModel getLoginViewModel()
     {
         var vm = new LoginViewModel();
-        //vm.FailedLogin += message => DialogHost.Show($"Failed login:\n{message}");
+        vm.FailedLogin += async message =>
+        {
+            SingleActionDialog dialog = new()
+            {
+                Message = message,
+                ButtonText = "Ok"
+            };
+
+            await dialog.ShowAsync();
+        };
+
         vm.ShowStudentInterface = (student) =>
         {
             ShowManagerWindow(new StudentView(student));

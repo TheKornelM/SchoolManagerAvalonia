@@ -9,71 +9,71 @@
              x:Class="SchoolManagerAvalonia.Views.LoginView"
              x:DataType="vm:LoginViewModel"
              >
-       
-       <UserControl.Styles>
-              <dialogHostAvalonia:DialogHostStyles />
-       </UserControl.Styles>
-       
-       <Design.DataContext>
-              <vm:LoginViewModel></vm:LoginViewModel>
-       </Design.DataContext>
-       
-       <Grid Margin="30,30,30,30"
-             HorizontalAlignment="Center">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition Height="30"></RowDefinition>
-            <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition Height="30"></RowDefinition>
-            <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition Height="30"></RowDefinition>
-            <RowDefinition Height="auto"></RowDefinition>
-        </Grid.RowDefinitions>
-        <Label Content="{x:Static resx:UI.Login}"
-               HorizontalAlignment="Center"
-               Grid.Row="0"
-               VerticalAlignment="Top"
-               FontSize="48" />
-        <Label Content="{x:Static resx:UI.Username}"
-               HorizontalAlignment="Left"
-               Grid.Row="2"
-               VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left"
-                 Grid.Row="3"
-                 TextWrapping="Wrap"
-                 VerticalAlignment="Top"
-                 Width="315"
-                 Height="31"
-                 FontSize="20"
-                 RenderTransformOrigin="0.5,0.5"
-                 Text="{Binding Username}"
+
+
+	<Design.DataContext>
+		<vm:LoginViewModel></vm:LoginViewModel>
+	</Design.DataContext>
+
+	<Grid Margin="30,30,30,30"
+		  HorizontalAlignment="Center" VerticalAlignment="Center">
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*"/>
+			<ColumnDefinition Width="auto"/>
+			<ColumnDefinition Width="*"/>
+		</Grid.ColumnDefinitions>
+
+		<Grid Grid.Column="1" Grid.Row="1">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="auto"></RowDefinition>
+				<RowDefinition Height="30"></RowDefinition>
+				<RowDefinition Height="auto"></RowDefinition>
+				<RowDefinition Height="auto"></RowDefinition>
+				<RowDefinition Height="30"></RowDefinition>
+				<RowDefinition Height="auto"></RowDefinition>
+				<RowDefinition Height="auto"></RowDefinition>
+				<RowDefinition Height="30"></RowDefinition>
+				<RowDefinition Height="auto"></RowDefinition>
+			</Grid.RowDefinitions>
+
+			<Label Content="{x:Static resx:UI.Login}"
+	   HorizontalAlignment="Center"
+	   Grid.Row="0"
+	   Classes="h1"
+	   VerticalAlignment="Top" />
+			<Label Content="{x:Static resx:UI.Username}"
+				   HorizontalAlignment="Left"
+				   Grid.Row="2"
+				   VerticalAlignment="Top"/>
+			<TextBox HorizontalAlignment="Stretch"
+					 Grid.Row="3"
+					 TextWrapping="Wrap"
+					 VerticalAlignment="Top"
+					 RenderTransformOrigin="0.5,0.5"
+					 Text="{Binding Username}"
                  />
-        <Label Content="{x:Static resx:UI.Password}"
-               HorizontalAlignment="Left"
-               Grid.Row="5"
-               VerticalAlignment="Top"
-               FontSize="24" />
-        <TextBox HorizontalAlignment="Left"
-                     Grid.Row="6"
-                     VerticalAlignment="Top"
-                     Width="315"
-                     Height="31"
-                     FontSize="20"
-                     Name="PasswordBox"
-                     PasswordChar="*"
-                     RevealPassword="True"
-                     Text="{Binding Password}"
+			<Label Content="{x:Static resx:UI.Password}"
+				   HorizontalAlignment="Left"
+				   Grid.Row="5"
+				   VerticalAlignment="Top"/>
+
+			<TextBox Grid.Row="6"
+						VerticalAlignment="Top"
+						 Name="PasswordBox"
+						 PasswordChar="*"
+						 RevealPassword="True"
+						 Text="{Binding Password}"
+						 HorizontalAlignment="Stretch"
                      />
-        <Button Content="{x:Static resx:UI.Login}"
-                HorizontalAlignment="Center"
-                Grid.Row="8"
-                VerticalAlignment="Top"
-                Height="79"
-                Width="230"
-                FontSize="24"
-                Command="{Binding LoginUserCommand}"
+			<Button Content="{x:Static resx:UI.Login}"
+					Grid.Row="8"
+					Height="79" Width="230"
+					Command="{Binding LoginUserCommand}"
+					HorizontalAlignment="Center"
                 />
-    </Grid>
+
+		</Grid>
+		<dialogHostAvalonia:DialogHost Identifier="MainDialogHost" Grid.Column="0" Grid.ColumnSpan="3"/>
+
+	</Grid>
 </UserControl>

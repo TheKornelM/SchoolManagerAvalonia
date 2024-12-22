@@ -7,6 +7,7 @@ public partial class AdminView : UserControl
 {
     public AdminView(Admin admin) : this()
     {
+
     }
 
     public AdminView()
