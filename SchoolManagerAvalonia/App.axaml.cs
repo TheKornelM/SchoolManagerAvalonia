@@ -78,7 +78,10 @@ public partial class App : Application
         };
         vm.ShowAdminInterface = (admin) =>
         {
-            ShowManagerWindow(new AdminView(admin));
+            ShowManagerWindow(new AdminView(admin)
+            {
+                DataContext = new NavViewModel()
+            });
         };
         vm.ShowTeacherInterface = (teacher) =>
         {

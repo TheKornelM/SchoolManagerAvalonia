@@ -12,7 +12,8 @@
 
     <Application.Styles>
         <FluentTheme />
-        <dialogHostAvalonia:DialogHostStyles />
+		<StyleInclude Source="avares://SchoolManagerAvalonia/Assets/Icons.axaml" />
+		<dialogHostAvalonia:DialogHostStyles />
 		
 			<!-- Default Font Size -->
 			<Style Selector="Label">

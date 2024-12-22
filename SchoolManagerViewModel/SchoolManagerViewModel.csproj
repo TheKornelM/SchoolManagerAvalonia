@@ -7,10 +7,11 @@
   </PropertyGroup>
 
 	<ItemGroup>
-		<PackageVersion Include="AutoMapper" Version="13.0.1"/>
+		<PackageVersion Include="AutoMapper" Version="13.0.1" />
 		<PackageReference Include="AutoMapper" />
+		<PackageReference Include="CommunityToolkit.Mvvm" />
 		<PackageVersion Include="FluentValidation" Version="11.10.0" />
-		<PackageReference Include="FluentValidation"/>
+		<PackageReference Include="FluentValidation" />
 	</ItemGroup>
 	
   <ItemGroup>

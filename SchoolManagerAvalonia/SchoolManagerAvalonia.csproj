@@ -11,6 +11,10 @@
     </ItemGroup>
 
     <ItemGroup>
+      <AvaloniaXaml Remove="Assets\Icons.axaml" />
+    </ItemGroup>
+
+    <ItemGroup>
         <PackageReference Include="Avalonia" />
         <PackageReference Include="Avalonia.Themes.Fluent" />
         <PackageReference Include="Avalonia.Fonts.Inter" />
@@ -32,5 +36,11 @@
 
     <ItemGroup>
       <UpToDateCheckInput Remove="Views\Windows\Login.axaml" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <AvaloniaResource Update="Assets\Icons.axaml">
+        <SubType>Designer</SubType>
+      </AvaloniaResource>
     </ItemGroup>
 </Project>
