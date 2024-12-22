@@ -20,6 +20,8 @@ public partial class NavViewModel : ObservableObject
     private readonly List<ListItemTemplate> _templates =
     [
         new ListItemTemplate(typeof(AddUserViewModel), "PersonRegular", "Home"),
+        new ListItemTemplate(typeof(AdminClassesViewModel), "ClassRegular", "Classes"),
+        new ListItemTemplate(typeof(AddSubjectViewModel), "NotepadRegular", "Add subject")
         /*new ListItemTemplate(typeof(ButtonPageViewModel), "CursorHoverRegular", "Buttons"),
         new ListItemTemplate(typeof(TextPageViewModel), "TextNumberFormatRegular", "Text"),
         new ListItemTemplate(typeof(ValueSelectionPageViewModel), "CalendarCheckmarkRegular", "Value Selection"),*/

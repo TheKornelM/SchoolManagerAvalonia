@@ -75,9 +75,9 @@ public class AdminClassesViewModel : ClassesViewModelBase
     #endregion
 
     #region Constructor
-    public AdminClassesViewModel(ResourceManager resourceManager)
+    public AdminClassesViewModel()
     {
-        ResourceManager = resourceManager;
+        ResourceManager = UIResourceFactory.GetNewResource();
         AddClassCommand = new AddClassCommand(this);
         var mapperConfiguration = new MapperConfiguration(cfg =>
         {

@@ -22,7 +22,8 @@ public partial class App : Application
 
     public override void OnFrameworkInitializationCompleted()
     {
-        base.OnFrameworkInitializationCompleted();
+        var locator = new ViewLocator();
+        DataTemplates.Add(locator);
 
         var view = new LoginView()
         {
@@ -43,6 +44,8 @@ public partial class App : Application
         {
             singleViewPlatform.MainView = view;
         }
+
+        base.OnFrameworkInitializationCompleted();
     }
 
     private void DisableAvaloniaDataAnnotationValidation()

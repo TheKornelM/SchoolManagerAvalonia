@@ -1,8 +1,8 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using SchoolManagerViewModel;
 
 namespace SchoolManagerAvalonia.ViewModels;
 
 public partial class MainViewModel : ViewModelBase
 {
-    [ObservableProperty] private string _greeting = "Welcome to Avalonia!";
+    private string _greeting = "Welcome to Avalonia!";
 }
