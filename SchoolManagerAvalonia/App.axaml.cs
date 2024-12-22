@@ -1,9 +1,10 @@
 using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
-using Avalonia.Markup.Xaml;
 using SchoolManagerAvalonia.Views;
 using SchoolManagerAvalonia.Views.Windows;
+using SchoolManagerModel.Persistence;
 using SchoolManagerViewModel;
 using System.Linq;
 
@@ -13,27 +14,31 @@ public partial class App : Application
 {
     public override void Initialize()
     {
-        AvaloniaXamlLoader.Load(this);
+        base.Initialize();
+        using var dbContext = new SchoolDbContext();
+        dbContext.Database.EnsureCreated();
     }
 
     public override void OnFrameworkInitializationCompleted()
     {
+        var view = new LoginView()
+        {
+            DataContext = getLoginViewModel()
+        };
+
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             // Avoid duplicate validations from both Avalonia and the CommunityToolkit. 
             // More info: https://docs.avaloniaui.net/docs/guides/development-guides/data-validation#manage-validationplugins
             DisableAvaloniaDataAnnotationValidation();
-            desktop.MainWindow = new LoginWindow
+            desktop.MainWindow = new LoginWindow()
             {
-                DataContext = getLoginViewModel()
+                Content = view
             };
         }
         else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
         {
-            singleViewPlatform.MainView = new LoginView()
-            {
-                DataContext = getLoginViewModel()
-            };
+            singleViewPlatform.MainView = view;
         }
 
         base.OnFrameworkInitializationCompleted();
@@ -56,24 +61,34 @@ public partial class App : Application
     {
         var vm = new LoginViewModel();
         //vm.FailedLogin += message => DialogHost.Show($"Failed login:\n{message}");
-        /*vm.ShowStudentInterface = (student) =>
+        vm.ShowStudentInterface = (student) =>
         {
-            var studentUI = new Stuent(student);
-            studentUI.Show();
-            this.Close();
+            ShowManagerWindow(new StudentView(student));
         };
         vm.ShowAdminInterface = (admin) =>
         {
-            var adminUI = new AdminUI(admin);
-            adminUI.Show();
-            this.Close();
+            ShowManagerWindow(new AdminView(admin));
         };
         vm.ShowTeacherInterface = (teacher) =>
         {
-            var teacherUI = new TeacherUI(teacher);
-            teacherUI.Show();
-            this.Close();
-        };*/
+            ShowManagerWindow(new TeacherView(teacher));
+        };
+
         return vm;
+    }
+
+    private void ShowManagerWindow(UserControl userControl)
+    {
+        if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop && desktop.MainWindow != null)
+        {
+            // Avoid duplicate validations from both Avalonia and the CommunityToolkit. 
+            // More info: https://docs.avaloniaui.net/docs/guides/development-guides/data-validation#manage-validationplugins
+            DisableAvaloniaDataAnnotationValidation();
+            desktop.MainWindow.Content = userControl;
+        }
+        else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
+        {
+            singleViewPlatform.MainView = userControl;
+        }
     }
 }

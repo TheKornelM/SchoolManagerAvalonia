@@ -1,13 +1,16 @@
-﻿using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
+﻿using Avalonia.Controls;
+using SchoolManagerModel.Entities.UserModel;
 
 namespace SchoolManagerAvalonia.Views;
 
 public partial class StudentView : UserControl
 {
+    public StudentView(Student student) : this()
+    {
+    }
+
     public StudentView()
     {
-        AvaloniaXamlLoader.Load(this);
+        InitializeComponent();
     }
 }

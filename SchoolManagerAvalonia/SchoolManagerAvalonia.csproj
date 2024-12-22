@@ -7,21 +7,21 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <AvaloniaResource Include="Assets\**"/>
+        <AvaloniaResource Include="Assets\**" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Avalonia"/>
-        <PackageReference Include="Avalonia.Themes.Fluent"/>
-        <PackageReference Include="Avalonia.Fonts.Inter"/>
+        <PackageReference Include="Avalonia" />
+        <PackageReference Include="Avalonia.Themes.Fluent" />
+        <PackageReference Include="Avalonia.Fonts.Inter" />
         <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
         <PackageReference Include="Avalonia.Diagnostics">
             <IncludeAssets Condition="'$(Configuration)' != 'Debug'">None</IncludeAssets>
             <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
         </PackageReference>
-        <PackageReference Include="CommunityToolkit.Mvvm"/>
+        <PackageReference Include="CommunityToolkit.Mvvm" />
 		<PackageVersion Include="DialogHost.Avalonia" Version="0.9.0-preview3" />
-		<PackageReference Include="DialogHost.Avalonia"/>
+		<PackageReference Include="DialogHost.Avalonia" />
 	</ItemGroup>
 
     <ItemGroup>
@@ -31,9 +31,5 @@
 
     <ItemGroup>
       <UpToDateCheckInput Remove="Views\Windows\Login.axaml" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <AdditionalFiles Include="Windows\Login.axaml" />
     </ItemGroup>
 </Project>
