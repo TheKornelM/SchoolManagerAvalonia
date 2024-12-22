@@ -4,10 +4,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:SchoolManagerViewModel;assembly=SchoolManagerViewModel"
              xmlns:resx="clr-namespace:SchoolManagerModel.Resources;assembly=SchoolManagerModel"
+             xmlns:dialogHostAvalonia="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="SchoolManagerAvalonia.Views.LoginView"
              x:DataType="vm:LoginViewModel"
              >
+       
+       <UserControl.Styles>
+              <dialogHostAvalonia:DialogHostStyles />
+       </UserControl.Styles>
        
        <Design.DataContext>
               <vm:LoginViewModel></vm:LoginViewModel>

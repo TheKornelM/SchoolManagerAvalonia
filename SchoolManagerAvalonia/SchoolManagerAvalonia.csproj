@@ -20,7 +20,9 @@
             <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
         </PackageReference>
         <PackageReference Include="CommunityToolkit.Mvvm"/>
-    </ItemGroup>
+		<PackageVersion Include="DialogHost.Avalonia" Version="0.9.0-preview3" />
+		<PackageReference Include="DialogHost.Avalonia"/>
+	</ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\SchoolManagerModel\SchoolManagerModel.csproj" />

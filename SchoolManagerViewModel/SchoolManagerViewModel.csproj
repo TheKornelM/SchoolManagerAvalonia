@@ -6,10 +6,13 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="13.0.1" />
-  </ItemGroup>
-
+	<ItemGroup>
+		<PackageVersion Include="AutoMapper" Version="13.0.1"/>
+		<PackageReference Include="AutoMapper" />
+		<PackageVersion Include="FluentValidation" Version="11.10.0" />
+		<PackageReference Include="FluentValidation"/>
+	</ItemGroup>
+	
   <ItemGroup>
     <ProjectReference Include="..\SchoolManagerModel\SchoolManagerModel.csproj" />
   </ItemGroup>

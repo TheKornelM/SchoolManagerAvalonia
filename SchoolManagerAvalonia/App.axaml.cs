@@ -1,14 +1,11 @@
-using System;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Data.Core;
 using Avalonia.Data.Core.Plugins;
-using System.Linq;
 using Avalonia.Markup.Xaml;
-using SchoolManagerAvalonia.ViewModels;
 using SchoolManagerAvalonia.Views;
 using SchoolManagerAvalonia.Views.Windows;
 using SchoolManagerViewModel;
+using System.Linq;
 
 namespace SchoolManagerAvalonia;
 
@@ -58,6 +55,25 @@ public partial class App : Application
     private LoginViewModel getLoginViewModel()
     {
         var vm = new LoginViewModel();
+        //vm.FailedLogin += message => DialogHost.Show($"Failed login:\n{message}");
+        /*vm.ShowStudentInterface = (student) =>
+        {
+            var studentUI = new Stuent(student);
+            studentUI.Show();
+            this.Close();
+        };
+        vm.ShowAdminInterface = (admin) =>
+        {
+            var adminUI = new AdminUI(admin);
+            adminUI.Show();
+            this.Close();
+        };
+        vm.ShowTeacherInterface = (teacher) =>
+        {
+            var teacherUI = new TeacherUI(teacher);
+            teacherUI.Show();
+            this.Close();
+        };*/
         return vm;
     }
 }
