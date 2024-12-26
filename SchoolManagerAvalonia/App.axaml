@@ -6,22 +6,27 @@
              RequestedThemeVariant="Default">
              <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
 
+	<Application.Resources>
+		<x:Double x:Key="BaseFontSize">20</x:Double>
+	</Application.Resources>
+
     <Application.DataTemplates>
         <local:ViewLocator/>
     </Application.DataTemplates>
 
     <Application.Styles>
         <FluentTheme />
-        <dialogHostAvalonia:DialogHostStyles />
+		<StyleInclude Source="avares://SchoolManagerAvalonia/Assets/Icons.axaml" />
+		<dialogHostAvalonia:DialogHostStyles />
 		
 			<!-- Default Font Size -->
-			<Style Selector="Label">
-				<Setter Property="FontSize" Value="24" />
-			</Style>
-		
-			<Style Selector="TextBox">
-				<Setter Property="FontSize" Value="20" />
-			</Style>
+        <Style Selector="Label, TextBox">
+	        <Setter Property="FontSize" Value="{StaticResource BaseFontSize}" />
+        </Style>
+        
+        <Style Selector="TextBlock">
+	        <Setter Property="FontSize" Value="{StaticResource BaseFontSize}"/>
+        </Style>
 
 		<Style Selector="Label.h1">
 			<Setter Property="FontSize" Value="48"/>

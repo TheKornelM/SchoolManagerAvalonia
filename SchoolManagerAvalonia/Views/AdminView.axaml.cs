@@ -14,4 +14,9 @@ public partial class AdminView : UserControl
     {
         InitializeComponent();
     }
+
+    private void ListBox_PointerPressed_1(object? sender, Avalonia.Input.TappedEventArgs e)
+    {
+
+    }
 }
