@@ -7,6 +7,7 @@ using SchoolManagerAvalonia.Views;
 using SchoolManagerAvalonia.Views.Windows;
 using SchoolManagerModel.Persistence;
 using SchoolManagerViewModel;
+using System;
 using System.Linq;
 
 namespace SchoolManagerAvalonia;
@@ -24,26 +25,7 @@ public partial class App : Application
     {
         var locator = new ViewLocator();
         DataTemplates.Add(locator);
-
-        var view = new LoginView()
-        {
-            DataContext = getLoginViewModel()
-        };
-
-        if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
-        {
-            // Avoid duplicate validations from both Avalonia and the CommunityToolkit. 
-            // More info: https://docs.avaloniaui.net/docs/guides/development-guides/data-validation#manage-validationplugins
-            DisableAvaloniaDataAnnotationValidation();
-            desktop.MainWindow = new LoginWindow()
-            {
-                Content = view
-            };
-        }
-        else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
-        {
-            singleViewPlatform.MainView = view;
-        }
+        ShowLoginView();
 
         base.OnFrameworkInitializationCompleted();
     }
@@ -64,7 +46,7 @@ public partial class App : Application
     private LoginViewModel getLoginViewModel()
     {
         var vm = new LoginViewModel();
-        vm.FailedLogin += async message =>
+        vm.FailedLogin += async (message) =>
         {
             SingleActionDialog dialog = new()
             {
@@ -81,9 +63,14 @@ public partial class App : Application
         };
         vm.ShowAdminInterface = (admin) =>
         {
+            var navViewModel = new NavViewModel(admin.User)
+            {
+                LogoutRequested = LogoutRequested
+            };
+
             ShowManagerWindow(new AdminView(admin)
             {
-                DataContext = new NavViewModel()
+                DataContext = navViewModel
             });
         };
         vm.ShowTeacherInterface = (teacher) =>
@@ -107,5 +94,36 @@ public partial class App : Application
         {
             singleViewPlatform.MainView = userControl;
         }
+    }
+
+    public void LogoutRequested(object? e, EventArgs _)
+    {
+        ShowLoginView();
+    }
+
+    public void ShowLoginView()
+    {
+
+        var view = new LoginView()
+        {
+            DataContext = getLoginViewModel()
+        };
+
+        if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+        {
+            // Avoid duplicate validations from both Avalonia and the CommunityToolkit. 
+            // More info: https://docs.avaloniaui.net/docs/guides/development-guides/data-validation#manage-validationplugins
+            DisableAvaloniaDataAnnotationValidation();
+            desktop.MainWindow = new LoginWindow()
+            {
+                Content = view
+            };
+        }
+        else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
+        {
+            singleViewPlatform.MainView = view;
+        }
+
+
     }
 }

@@ -1,12 +1,18 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using SchoolManagerModel.Entities.UserModel;
 using System.Collections.ObjectModel;
+using System.Runtime.InteropServices;
+using SchoolManagerViewModel.Utils;
 
 namespace SchoolManagerViewModel;
 public partial class NavViewModel : ObservableObject
 {
-    public NavViewModel()
+    private User? _user;
+
+    public NavViewModel(User user)
     {
+        _user = user;
         /*messenger.Register<NavViewModel, LoginSuccessMessage>(this, (_, message) =>
         {
             CurrentPage = new SecretViewModel(message.Value);
@@ -15,6 +21,15 @@ public partial class NavViewModel : ObservableObject
         Items = new ObservableCollection<ListItemTemplate>(_templates);
 
         SelectedListItem = Items.First(vm => vm.ModelType == typeof(AddUserViewModel));
+
+        /*
+         * On desktop, the collapsed navbar is 40 pixels width to show menu icons.
+         * Icons are hidden on mobile.
+         */
+        if (SystemInfo.IsMobilePlatform())
+        {
+            CollapsedNavbarWidth = 0;
+        }
     }
 
     private readonly List<ListItemTemplate> _templates =
@@ -35,6 +50,8 @@ public partial class NavViewModel : ObservableObject
 
     [ObservableProperty]
     private ListItemTemplate? _selectedListItem;
+
+    public int CollapsedNavbarWidth { get; set; } = 40;
 
     partial void OnSelectedListItemChanged(ListItemTemplate? value)
     {
@@ -58,4 +75,12 @@ public partial class NavViewModel : ObservableObject
     {
         IsPaneOpen = !IsPaneOpen;
     }
+
+    [RelayCommand]
+    private void TriggerLogout()
+    {
+        LogoutRequested?.Invoke(this, EventArgs.Empty);
+    }
+
+    public required EventHandler LogoutRequested { get; set; }
 }
