@@ -8,20 +8,26 @@ using SchoolManagerViewModel.Utils;
 namespace SchoolManagerViewModel;
 public partial class NavViewModel : ObservableObject
 {
-    private User? _user;
+    public User User { get; set; }
 
-    public NavViewModel(User user)
+    public NavViewModel(User user) : this()
     {
-        _user = user;
-        /*messenger.Register<NavViewModel, LoginSuccessMessage>(this, (_, message) =>
+        User = user;
+    }
+    
+    public NavViewModel()
+    {
+        #if (DEBUG)
+        User = new User
         {
-            CurrentPage = new SecretViewModel(message.Value);
-        });*/
-
+            LastName = "LastName",
+            FirstName = "FirstName"
+        };
+        #endif
+        
         Items = new ObservableCollection<ListItemTemplate>(_templates);
-
         SelectedListItem = Items.First(vm => vm.ModelType == typeof(AddUserViewModel));
-
+        
         /*
          * On desktop, the collapsed navbar is 40 pixels width to show menu icons.
          * Icons are hidden on mobile.
@@ -29,9 +35,10 @@ public partial class NavViewModel : ObservableObject
         if (SystemInfo.IsMobilePlatform())
         {
             CollapsedNavbarWidth = 0;
+            IsPaneOpen = false;
         }
     }
-
+    
     private readonly List<ListItemTemplate> _templates =
     [
         new ListItemTemplate(typeof(AddUserViewModel), "PersonRegular", "Home"),
@@ -51,7 +58,7 @@ public partial class NavViewModel : ObservableObject
     [ObservableProperty]
     private ListItemTemplate? _selectedListItem;
 
-    public int CollapsedNavbarWidth { get; set; } = 40;
+    public int CollapsedNavbarWidth { get; set; } = 65;
 
     partial void OnSelectedListItemChanged(ListItemTemplate? value)
     {
@@ -61,10 +68,15 @@ public partial class NavViewModel : ObservableObject
              ? Activator.CreateInstance(value.ModelType)
              : Ioc.Default.GetService(value.ModelType);*/
 
+        if (SystemInfo.IsMobilePlatform())
+        {
+            IsPaneOpen = false;
+        }
+        
         var vm = Activator.CreateInstance(value.ModelType);
 
         if (vm is not ViewModelBase vmb) return;
-
+        
         CurrentPage = vmb;
     }
 
