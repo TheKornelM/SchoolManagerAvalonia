@@ -2,13 +2,16 @@
 using CommunityToolkit.Mvvm.Input;
 using SchoolManagerModel.Entities.UserModel;
 using System.Collections.ObjectModel;
+using System.Resources;
 using System.Runtime.InteropServices;
+using SchoolManagerModel.Utils;
 using SchoolManagerViewModel.Utils;
 
 namespace SchoolManagerViewModel;
 public partial class NavViewModel : ObservableObject
 {
     public User User { get; set; }
+    private ResourceManager ResourceManager { get; set; } = UIResourceFactory.GetNewResource();  
 
     public NavViewModel(User user) : this()
     {
@@ -20,12 +23,18 @@ public partial class NavViewModel : ObservableObject
         #if (DEBUG)
         User = new User
         {
-            LastName = "LastName",
+            LastName = "Surname",
             FirstName = "FirstName"
         };
         #endif
         
-        Items = new ObservableCollection<ListItemTemplate>(_templates);
+        List<ListItemTemplate> templates = [
+            new(typeof(AddUserViewModel), "PersonRegular", ResourceManager.GetStringOrDefault("AddUser")),
+            new(typeof(AdminClassesViewModel), "ClassRegular", ResourceManager.GetStringOrDefault("Classes")),
+            new(typeof(AddSubjectViewModel), "NotepadRegular", ResourceManager.GetStringOrDefault("AddSubject")),
+        ];
+        
+        Items = new ObservableCollection<ListItemTemplate>(templates);
         SelectedListItem = Items.First(vm => vm.ModelType == typeof(AddUserViewModel));
         
         /*
@@ -36,18 +45,9 @@ public partial class NavViewModel : ObservableObject
         {
             CollapsedNavbarWidth = 0;
             IsPaneOpen = false;
-        }
+        } 
+        
     }
-    
-    private readonly List<ListItemTemplate> _templates =
-    [
-        new ListItemTemplate(typeof(AddUserViewModel), "PersonRegular", "Home"),
-        new ListItemTemplate(typeof(AdminClassesViewModel), "ClassRegular", "Classes"),
-        new ListItemTemplate(typeof(AddSubjectViewModel), "NotepadRegular", "Add subject")
-        /*new ListItemTemplate(typeof(ButtonPageViewModel), "CursorHoverRegular", "Buttons"),
-        new ListItemTemplate(typeof(TextPageViewModel), "TextNumberFormatRegular", "Text"),
-        new ListItemTemplate(typeof(ValueSelectionPageViewModel), "CalendarCheckmarkRegular", "Value Selection"),*/
-    ];
 
     [ObservableProperty]
     private bool _isPaneOpen = true;

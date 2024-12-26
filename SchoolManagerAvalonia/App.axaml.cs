@@ -8,6 +8,8 @@ using SchoolManagerAvalonia.Views.Windows;
 using SchoolManagerModel.Persistence;
 using SchoolManagerViewModel;
 using System;
+using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 
 namespace SchoolManagerAvalonia;
@@ -88,6 +90,7 @@ public partial class App : Application
             // Avoid duplicate validations from both Avalonia and the CommunityToolkit. 
             // More info: https://docs.avaloniaui.net/docs/guides/development-guides/data-validation#manage-validationplugins
             DisableAvaloniaDataAnnotationValidation();
+            desktop.MainWindow.Title = "SchoolManager";
             desktop.MainWindow.Content = userControl;
         }
         else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
@@ -103,6 +106,7 @@ public partial class App : Application
 
     public void ShowLoginView()
     {
+        Debug.WriteLine(CultureInfo.CurrentCulture);
 
         var view = new LoginView()
         {
@@ -114,16 +118,18 @@ public partial class App : Application
             // Avoid duplicate validations from both Avalonia and the CommunityToolkit. 
             // More info: https://docs.avaloniaui.net/docs/guides/development-guides/data-validation#manage-validationplugins
             DisableAvaloniaDataAnnotationValidation();
-            desktop.MainWindow = new LoginWindow()
+
+            if (desktop.MainWindow == null)
             {
-                Content = view
+                desktop.MainWindow = new LoginWindow();
             };
+
+            desktop.MainWindow.Content = view;
+            desktop.MainWindow.Title = "Login";
         }
         else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
         {
             singleViewPlatform.MainView = view;
         }
-
-
     }
 }
