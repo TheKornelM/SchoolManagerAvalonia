@@ -119,11 +119,7 @@ public partial class App : Application
             // More info: https://docs.avaloniaui.net/docs/guides/development-guides/data-validation#manage-validationplugins
             DisableAvaloniaDataAnnotationValidation();
 
-            if (desktop.MainWindow == null)
-            {
-                desktop.MainWindow = new LoginWindow();
-            };
-
+            desktop.MainWindow ??= new LoginWindow();;
             desktop.MainWindow.Content = view;
             desktop.MainWindow.Title = "Login";
         }
