@@ -13,7 +13,7 @@ public class ViewLocator : IDataTemplate
 
     public ViewLocator()
     {
-        RegisterViewFactory<AddUserViewModel, AddUserView>();
+        RegisterViewFactory<FilterUsersViewModel, UsersView>();
         RegisterViewFactory<AdminClassesViewModel, AdminClassesView>();
         RegisterViewFactory<AddSubjectViewModel, AddSubjectView>();
     }

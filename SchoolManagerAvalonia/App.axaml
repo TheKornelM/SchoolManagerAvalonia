@@ -18,6 +18,7 @@
         <FluentTheme />
 		<StyleInclude Source="avares://SchoolManagerAvalonia/Assets/Icons.axaml" />
 		<dialogHostAvalonia:DialogHostStyles />
+        <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>
 		
 			<!-- Default Font Size -->
         <Style Selector="Label, TextBox">
