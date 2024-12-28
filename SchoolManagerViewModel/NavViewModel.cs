@@ -30,6 +30,7 @@ public partial class NavViewModel : ObservableObject
         
         List<ListItemTemplate> templates = [
             new(typeof(FilterUsersViewModel), "PersonRegular", ResourceManager.GetStringOrDefault("Users")),
+            new(typeof(AddUserViewModel), "PersonRegular", ResourceManager.GetStringOrDefault("AddUser")),
             new(typeof(AdminClassesViewModel), "ClassRegular", ResourceManager.GetStringOrDefault("Classes")),
             new(typeof(AddSubjectViewModel), "NotepadRegular", ResourceManager.GetStringOrDefault("AddSubject")),
         ];

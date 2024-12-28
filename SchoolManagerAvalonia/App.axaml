@@ -8,6 +8,7 @@
 
 	<Application.Resources>
 		<x:Double x:Key="BaseFontSize">20</x:Double>
+		
 	</Application.Resources>
 
     <Application.DataTemplates>

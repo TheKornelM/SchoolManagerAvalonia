@@ -3,6 +3,7 @@ using Avalonia.Controls.Templates;
 using SchoolManagerViewModel;
 using System;
 using System.Collections.Generic;
+using SchoolManagerAvalonia.Views;
 
 
 namespace SchoolManagerAvalonia;
@@ -16,6 +17,7 @@ public class ViewLocator : IDataTemplate
         RegisterViewFactory<FilterUsersViewModel, UsersView>();
         RegisterViewFactory<AdminClassesViewModel, AdminClassesView>();
         RegisterViewFactory<AddSubjectViewModel, AddSubjectView>();
+        RegisterViewFactory<AddUserViewModel, AddUserView>();
     }
 
     public Control? Build(object? data)
