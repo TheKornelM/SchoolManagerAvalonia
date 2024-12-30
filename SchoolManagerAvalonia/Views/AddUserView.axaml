@@ -1,9 +1,127 @@
-<UserControl xmlns="https://github.com/avaloniaui"
+﻿<UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-			 xmlns:vm="clr-namespace:SchoolManagerViewModel;assembly=SchoolManagerViewModel"
+             xmlns:converters="clr-namespace:SchoolManagerAvalonia.Converters"
+             xmlns:resx="clr-namespace:SchoolManagerModel.Resources;assembly=SchoolManagerModel"
+             xmlns:vm="clr-namespace:SchoolManagerViewModel;assembly=SchoolManagerViewModel"
+             xmlns:controls="clr-namespace:SchoolManagerAvalonia.Controls"
+             xmlns:dialogHostAvalonia="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="SchoolManagerAvalonia.AddUserView" x:DataType="vm:AddUserViewModel">
-  AddUserView!
+             x:Class="SchoolManagerAvalonia.Views.AddUserView"
+             x:Name="Users"
+             x:DataType="vm:AddUserViewModel">
+    <UserControl.Resources>
+        <converters:RoleToIntConverter x:Key="RoleToIntConverter" />
+        <converters:IntToBooleanConverter x:Key="IntToBooleanConverter" />
+    </UserControl.Resources>
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Grid Margin="30,30,30,30"
+              ColumnDefinitions="45*,30,45*">
+            <Grid RowDefinitions="auto,auto,auto,auto,auto,auto,auto,auto,30,auto">
+                <controls:ValidatedTextBox LabelContent="{x:Static resx:UI.Username}"
+                                         FieldValue="{Binding User.Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                         ValidationError="{Binding User.UsernameValidatorErrors}"
+                                         Grid.Row="0" />
+                
+                <controls:ValidatedTextBox LabelContent="{x:Static resx:UI.FirstName}"
+                                           FieldValue="{Binding User.FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                           ValidationError="{Binding User.FirstNameValidatorErrors}"
+                                           Grid.Row="1" />
+
+                <controls:ValidatedTextBox LabelContent="{x:Static resx:UI.LastName}"
+                                           FieldValue="{Binding User.LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                           ValidationError="{Binding User.LastNameValidatorErrors}"
+                                           Grid.Row="2" />
+
+                <controls:ValidatedPasswordField LabelContent="{x:Static resx:UI.Password}"
+                                                 Password="{Binding User.Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                 ValidationError="{Binding User.PasswordValidatorErrors}"
+                                                 Grid.Row="3"
+                                                 x:Name="PasswordField" />
+
+                <controls:ValidatedPasswordField LabelContent="{x:Static resx:UI.ConfirmPassword}"
+                                                 Password="{Binding User.ConfirmPassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                 ValidationError="{Binding User.ConfirmPasswordValidatorErrors}"
+                                                 Grid.Row="4"
+                                                 x:Name="ConfirmPasswordField" />
+
+                <controls:ValidatedTextBox LabelContent="{x:Static resx:UI.EmailAddress}"
+                                           FieldValue="{Binding User.Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                           ValidationError="{Binding User.EmailValidatorErrors}"
+                                           Grid.Row="5" />
+
+                <Label Grid.Row="6"
+                       Content="{x:Static resx:UI.Role}"></Label>
+                <ComboBox Grid.Row="7"
+                          SelectedIndex="{Binding SelectedRole, Converter={StaticResource RoleToIntConverter}}" HorizontalAlignment="Stretch" >
+                    <ComboBoxItem Content="{x:Static resx:UI.Student}" />
+                    <ComboBoxItem Content="{x:Static resx:UI.Teacher}" />
+                    <ComboBoxItem Content="{x:Static resx:UI.Administrator}" />
+                </ComboBox>
+
+                <Button Content="{x:Static resx:UI.AddUser}"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Top"
+                        Height="50"
+                        MinWidth="200"
+                        Grid.Row="9"
+                        Padding="10"
+                        Command="{Binding AddUserCommand}" />
+            </Grid>
+
+            <Grid Grid.Column="2"
+                  IsVisible="{Binding IsStudent}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <Label Content="{x:Static resx:UI.Class}"
+                       Grid.Row="0" />
+                <ComboBox Grid.Row="1"
+                          ItemsSource="{Binding Classes}"
+                          SelectedItem="{Binding Class}" DisplayMemberBinding="{Binding Name}"/>
+                <Grid Grid.Row="3"
+                      Grid.RowSpan="3"
+                      Grid.Column="1"
+                      IsVisible="{Binding Subjects.Count, Converter={StaticResource IntToBooleanConverter}}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                    <Label Content="{x:Static resx:UI.AssignedSubjects}"
+                           Grid.Row="0" />
+                    <controls:CheckBoxList Objects="{Binding Subjects, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                           Grid.Row="2"
+                                           AllSubjectsSelected="{Binding AllSubjectsSelected, Mode=TwoWay}" />
+                    <Button Grid.Row="5"
+                            Command="{Binding SelectAllSubjectsCommand}"
+                            MinHeight="50"
+                            MaxWidth="200" Classes.AllSelected="{Binding AllSubjectsSelected}" Classes.NotAllSelected="{Binding !AllSubjectsSelected}">
+                        <Button.Styles>
+                            <Style Selector="Button.AllSelected">
+                                <Setter Property="Content"
+                                Value="{x:Static resx:UI.UnselectAll}" />
+                            </Style>
+                            <Style Selector="Button.NotAllSelected">
+                                <Setter Property="Content"
+                                        Value="{x:Static resx:UI.SelectAll}" />
+                            </Style>
+                        </Button.Styles>
+                    </Button>
+                </Grid>
+            </Grid>
+            <dialogHostAvalonia:DialogHost Identifier="MainDialogHost" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="3"/>
+        </Grid>
+    </ScrollViewer>
 </UserControl>
