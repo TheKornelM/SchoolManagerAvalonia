@@ -3,9 +3,105 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:vm="clr-namespace:SchoolManagerViewModel;assembly=SchoolManagerViewModel"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:converters="clr-namespace:SchoolManagerAvalonia.Converters"
+			 xmlns:resx="clr-namespace:SchoolManagerModel.Resources;assembly=SchoolManagerModel"
+			 xmlns:dialogHostAvalonia="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
+			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="SchoolManagerAvalonia.AdminClassesView"
 			 x:DataType="vm:AdminClassesViewModel"
 			 >
-  Welcome to Avalonia!
+      <UserControl.Resources>
+        <converters:StringToVisibilityConverter x:Key="StringToVisibilityConverter" />
+    </UserControl.Resources>
+    <ScrollViewer>
+    <Grid Name="ClassesGrid"
+          Margin="30,30,30,30" RowDefinitions="auto,30,auto,auto,15,auto,auto,30,auto, 30, auto, *"
+          ColumnDefinitions="auto,30,auto,auto,auto,30,auto,auto, *">
+        <DataGrid ItemsSource="{Binding Classes}"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  Grid.Row="0"
+                  Grid.ColumnSpan="7">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="{x:Static resx:UI.ID}"
+                                    Binding="{Binding Id}"
+                                    IsReadOnly="True" />
+                <DataGridTextColumn Header="{x:Static resx:UI.Name}"
+                                    Binding="{Binding Name}" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <Label Content="{x:Static resx:UI.ClassYear}"
+               Grid.Row="2"
+               Grid.Column="0"
+               VerticalAlignment="Center"
+               />
+        <TextBox Text="{Binding ClassYear, Mode=TwoWay}"
+                 Grid.Row="2"
+                 Grid.Column="2"
+                 MinWidth="100"
+                 VerticalAlignment="Center" />
+        <Grid Grid.Row="3"
+              Grid.Column="0"
+              Grid.ColumnSpan="4"
+              Name="ClassYearValidationErrorsGrid"
+              IsVisible="{Binding ClassYearValidationErrors, Converter={StaticResource StringToVisibilityConverter}}">
+
+            <Label VerticalAlignment="Top"
+                   FontWeight="Bold"
+                   HorizontalAlignment="Stretch"
+                   Width="{Binding Width, ElementName=ClassYearValidationErrorsGrid, Mode=OneWay}">
+
+                <TextBlock TextWrapping="Wrap"
+                           Text="{Binding ClassYearValidationErrors}"
+                           HorizontalAlignment="Stretch"
+                           Background="{x:Null}"
+                           Foreground="Red" />
+            </Label>
+        </Grid>
+
+        <Label Content="{x:Static resx:UI.Class}"
+               Grid.Row="5"
+               Grid.Column="0"
+               VerticalAlignment="Center"
+               />
+        <TextBox Text="{Binding Class}"
+                 Grid.Row="5"
+                 Grid.Column="2"
+                 MinWidth="100"
+                 VerticalAlignment="Center" />
+        <Grid Grid.Row="7"
+              Grid.Column="0"
+              Grid.ColumnSpan="9"
+              Name="ClassValidationErrorsGrid"
+              IsVisible="{Binding ClassValidationErrors, Converter={StaticResource StringToVisibilityConverter}}">
+
+            <Label VerticalAlignment="Top"
+                   FontWeight="Bold"
+                   HorizontalAlignment="Stretch"
+                   Width="{Binding Width, ElementName=ClassValidationErrorsGrid, Mode=OneWay}"
+                   >
+
+                <TextBlock TextWrapping="Wrap"
+                           Text="{Binding ClassValidationErrors}"
+                           HorizontalAlignment="Stretch"
+                           Background="{x:Null}"
+                           Foreground="Red" />
+            </Label>
+        </Grid>
+        
+        <Button Content="{x:Static resx:UI.AddClass}"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Stretch"
+                Command="{Binding AddClassCommand}"
+                Padding="10"
+                Grid.Row="10"
+                Grid.Column="0"
+                Grid.ColumnSpan="5"
+                Height="65"
+        />
+        
+        <dialogHostAvalonia:DialogHost Identifier="MainDialogHost" Grid.Column="0" Grid.ColumnSpan="9" Grid.RowSpan="14"/>
+
+    </Grid>
+    </ScrollViewer>
 </UserControl>

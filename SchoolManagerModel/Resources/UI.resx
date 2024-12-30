@@ -274,7 +274,7 @@
     <value>Must be a letter</value>
   </data>
   <data name="CanContainOnly1Letter" xml:space="preserve">
-    <value>Cam contain only one letter</value>
+    <value>Can contain only one letter</value>
   </data>
   <data name="MustBeNumber" xml:space="preserve">
     <value>Must be a number</value>
