@@ -3,6 +3,7 @@ using System.Resources;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using AvaloniaDialogs.Views;
 using SchoolManagerModel.Utils;
 using SchoolManagerViewModel;
 
@@ -14,23 +15,36 @@ public partial class AddUserView : UserControl
     {
         InitializeComponent();
         var resourceManager = UIResourceFactory.GetNewResource();
-        //Users.DataContext = getNewUserViewModel(resourceManager);
+        DataContext = getNewUserViewModel(resourceManager);
     }
     
     private AddUserViewModel getNewUserViewModel(ResourceManager resourceManager)
     {
-        var vm = new AddUserViewModel();
-        vm.SuccessfulUserAdd = new Action(() =>
+
+        var vm = DataContext as AddUserViewModel;
+        vm = new AddUserViewModel();
+        
+        vm.SuccessfulUserAdd = async () =>
         {
-            //PasswordField.Password = string.Empty;
-            //ConfirmPasswordField.Password = string.Empty;
-            Users.DataContext = getNewUserViewModel(resourceManager);
-            //MessageBox.Show(resourceManager.GetString("SuccessfullyRegistration"));
-        });
-        vm.FailedUserAdd = new Action<string>((message) =>
+            DataContext = getNewUserViewModel(resourceManager);
+            SingleActionDialog dialog = new()
+            {
+                Message = resourceManager.GetStringOrDefault("SuccessfullyRegistration"),
+                ButtonText = "Ok"
+            };
+
+            await dialog.ShowAsync();
+        };
+        vm.FailedUserAdd = async (message) =>
         {
-            //MessageBox.Show(message);
-        });
+            SingleActionDialog dialog = new()
+            {
+                Message = message,
+                ButtonText = "Ok"
+            };
+
+            await dialog.ShowAsync();
+        };
 
         return vm;
     }

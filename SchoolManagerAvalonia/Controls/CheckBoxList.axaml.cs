@@ -1,23 +1,23 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
-using System.Collections.Generic;
-using System.Linq;
-using Avalonia;
-using System.ComponentModel; // For PropertyChangedEventHandler
 using SchoolManagerViewModel;
 
 namespace SchoolManagerAvalonia.Controls
 {
-    public partial class CheckBoxList : UserControl
+    public partial class CheckBoxList : UserControl, IObserver<IEnumerable<CheckBoxListItem>>
     {
         public CheckBoxList()
         {
             InitializeComponent();
 
-            // Use an IObserver implementation for Subscribe
-            this.GetObservable(ObjectsProperty).Subscribe(new ObjectsObserver(this));
+            // Subscribe to changes in the Objects property
+            this.GetObservable(ObjectsProperty).Subscribe(this);
         }
 
         private void InitializeComponent()
@@ -74,30 +74,18 @@ namespace SchoolManagerAvalonia.Controls
             UpdateAllSubjectsSelectedState();
         }
 
-        // Implementation of IObserver to handle object changes
-        private class ObjectsObserver : IObserver<IEnumerable<CheckBoxListItem>>
+        // Implementation of IObserver<IEnumerable<CheckBoxListItem>>
+        public void OnNext(IEnumerable<CheckBoxListItem>? value)
         {
-            private readonly CheckBoxList _checkBoxList;
+            OnObjectsChanged(value);
+        }
 
-            public ObjectsObserver(CheckBoxList checkBoxList)
-            {
-                _checkBoxList = checkBoxList;
-            }
+        public void OnError(Exception error)
+        {
+        }
 
-            public void OnNext(IEnumerable<CheckBoxListItem>? value)
-            {
-                _checkBoxList.OnObjectsChanged(value);
-            }
-
-            public void OnError(Exception error)
-            {
-                // Handle error if needed
-            }
-
-            public void OnCompleted()
-            {
-                // Handle completion if needed
-            }
+        public void OnCompleted()
+        {
         }
     }
 }

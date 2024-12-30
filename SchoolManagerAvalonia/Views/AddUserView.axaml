@@ -6,13 +6,13 @@
              xmlns:resx="clr-namespace:SchoolManagerModel.Resources;assembly=SchoolManagerModel"
              xmlns:vm="clr-namespace:SchoolManagerViewModel;assembly=SchoolManagerViewModel"
              xmlns:controls="clr-namespace:SchoolManagerAvalonia.Controls"
+             xmlns:dialogHostAvalonia="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="SchoolManagerAvalonia.Views.AddUserView"
              x:Name="Users"
              x:DataType="vm:AddUserViewModel">
     <UserControl.Resources>
         <converters:RoleToIntConverter x:Key="RoleToIntConverter" />
-        <converters:StringToVisibilityConverter x:Key="StringToVisibilityConverter" />
         <converters:IntToBooleanConverter x:Key="IntToBooleanConverter" />
     </UserControl.Resources>
     <ScrollViewer VerticalScrollBarVisibility="Auto">
@@ -54,7 +54,7 @@
                 <Label Grid.Row="6"
                        Content="{x:Static resx:UI.Role}"></Label>
                 <ComboBox Grid.Row="7"
-                          SelectedIndex="{Binding SelectedRole, Converter={StaticResource RoleToIntConverter}}">
+                          SelectedIndex="{Binding SelectedRole, Converter={StaticResource RoleToIntConverter}}" HorizontalAlignment="Stretch" >
                     <ComboBoxItem Content="{x:Static resx:UI.Student}" />
                     <ComboBoxItem Content="{x:Static resx:UI.Teacher}" />
                     <ComboBoxItem Content="{x:Static resx:UI.Administrator}" />
@@ -121,6 +121,7 @@
                     </Button>
                 </Grid>
             </Grid>
+            <dialogHostAvalonia:DialogHost Identifier="MainDialogHost" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="3"/>
         </Grid>
     </ScrollViewer>
 </UserControl>
