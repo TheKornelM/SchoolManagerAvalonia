@@ -32,4 +32,9 @@ public class ClassManager(IAsyncClassDataHandler dataHandler)
         return await dataHandler.GetClassSubjectsAsync(cls);
     }
 
+    public async Task<Class?> GetClassByIdAsync(int classId)
+    {
+        return await dataHandler.GetClassByIdAsync(classId);
+    }
+
 }

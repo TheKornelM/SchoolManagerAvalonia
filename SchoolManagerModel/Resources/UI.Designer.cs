@@ -393,6 +393,15 @@ namespace SchoolManagerModel.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There is no added student in this class..
+        /// </summary>
+        public static string NoAddedStudent {
+            get {
+                return ResourceManager.GetString("NoAddedStudent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Notes.
         /// </summary>
         public static string Notes {

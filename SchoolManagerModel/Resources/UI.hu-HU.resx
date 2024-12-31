@@ -297,4 +297,7 @@
   <data name="ResetFilters" xml:space="preserve">
     <value>Szűrők törlése</value>
   </data>
+  <data name="NoRecordedStudent" xml:space="preserve">
+    <value>Nincs hozzáadott tanuló ehhez az osztályhoz.</value>
+  </data>
 </root>

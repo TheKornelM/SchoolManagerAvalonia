@@ -40,4 +40,11 @@ public class ClassDatabase(SchoolDbContextBase dbContext) : IAsyncClassDataHandl
         return await dbContext.Classes
             .AnyAsync(x => x.Name == cls.Name);
     }
+
+    public async Task<Class?> GetClassByIdAsync(int classId)
+    {
+        return await dbContext.Classes
+            .AsNoTracking()
+            .FirstOrDefaultAsync(x => x.Id == classId);
+    }
 }

@@ -297,4 +297,7 @@
   <data name="ResetFilters" xml:space="preserve">
     <value>Reset filters</value>
   </data>
+  <data name="NoAddedStudent" xml:space="preserve">
+    <value>There is no added student in this class.</value>
+  </data>
 </root>

@@ -8,7 +8,13 @@
              xmlns:dialogHostAvalonia="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="SchoolManagerAvalonia.AdminClassesView"
-             x:DataType="vm:AdminClassesViewModel">
+             x:DataType="vm:AdminClassesViewModel"
+             >
+    
+    <Design.DataContext>
+        <vm:AdminClassesViewModel></vm:AdminClassesViewModel>
+    </Design.DataContext>
+    
     <UserControl.Resources>
         <converters:StringToVisibilityConverter x:Key="StringToVisibilityConverter" />
     </UserControl.Resources>
@@ -25,13 +31,22 @@
                       IsReadOnly="True"
                       HorizontalAlignment="Left"
                       Grid.Row="2"
-                      Grid.ColumnSpan="4">
+                      Grid.ColumnSpan="4" Grid.Column="0">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="{x:Static resx:UI.ID}"
                                         Binding="{Binding Id}"
                                         IsReadOnly="True" />
                     <DataGridTextColumn Header="{x:Static resx:UI.Name}"
                                         Binding="{Binding Name}" />
+                    <DataGridTemplateColumn Header="{x:Static resx:UI.Roster}">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="{x:Static resx:UI.Roster}"
+                                        Command="{Binding ((vm:AdminClassesViewModel)DataContext).ShowClassRosterCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                        CommandParameter="{Binding}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
 
@@ -108,8 +123,10 @@
             <!-- Dialog Host -->
             <dialogHostAvalonia:DialogHost Identifier="MainDialogHost"
                                            Grid.Column="0"
-                                           Grid.ColumnSpan="9"
-                                           Grid.RowSpan="12" />
+                                           Grid.ColumnSpan="4"
+                                           Grid.Row="0" Grid.RowSpan="12">
+                <Grid></Grid>
+            </dialogHostAvalonia:DialogHost>
         </Grid>
     </ScrollViewer>
 </UserControl>

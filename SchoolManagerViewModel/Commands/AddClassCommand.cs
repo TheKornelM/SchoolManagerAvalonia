@@ -44,7 +44,7 @@ public class AddClassCommand : ICommand
         }
         catch (Exception ex)
         {
-            _classesViewModel.FailedClassAdd?.Invoke(ex.Message);
+            _classesViewModel.FailedOperation?.Invoke(ex.Message);
         }
     }
 
