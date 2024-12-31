@@ -31,7 +31,7 @@ public class AddClassCommand : ICommand
 
         var nextClassId = _classesViewModel.Classes.Last().Id + 1;
         var className = $"{_classesViewModel.ClassYear}/{_classesViewModel.Class}";
-        var cls = new Class() { Id = nextClassId, Name = className };
+        var cls = new Class() { Id = nextClassId, Name = className.ToUpper() };
 
         try
         {
