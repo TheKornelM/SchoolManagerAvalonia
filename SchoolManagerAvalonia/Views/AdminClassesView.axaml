@@ -41,9 +41,14 @@
                     <DataGridTemplateColumn Header="{x:Static resx:UI.Roster}">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Content="{x:Static resx:UI.Roster}"
-                                        Command="{Binding ((vm:AdminClassesViewModel)DataContext).ShowClassRosterCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                        CommandParameter="{Binding}" />
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Content="{x:Static resx:UI.Roster}"
+                                                    Command="{Binding ((vm:AdminClassesViewModel)DataContext).ShowClassRosterCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                    CommandParameter="{Binding}" />
+                                    <Button Content="{x:Static resx:UI.Delete}"
+                                            Command="{Binding ((vm:AdminClassesViewModel)DataContext).DeleteClassCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                            CommandParameter="{Binding}" />
+                                </StackPanel>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>

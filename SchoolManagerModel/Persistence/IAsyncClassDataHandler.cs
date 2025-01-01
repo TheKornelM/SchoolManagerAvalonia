@@ -11,4 +11,5 @@ public interface IAsyncClassDataHandler
     public Task<List<Subject>> GetClassSubjectsAsync(Class cls);
     public Task<bool> ClassExistsAsync(Class cls);
     public Task<Class?> GetClassByIdAsync(int classId);
+    public Task DeleteClassAsync(Class cls);
 }

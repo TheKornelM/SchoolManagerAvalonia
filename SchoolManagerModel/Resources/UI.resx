@@ -300,4 +300,10 @@
   <data name="NoAddedStudent" xml:space="preserve">
     <value>There is no added student in this class.</value>
   </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="NoRecordedStudent" xml:space="preserve">
+    <value />
+  </data>
 </root>

@@ -222,6 +222,15 @@ namespace SchoolManagerModel.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string Delete {
+            get {
+                return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email address.
         /// </summary>
         public static string EmailAddress {
@@ -398,6 +407,15 @@ namespace SchoolManagerModel.Resources {
         public static string NoAddedStudent {
             get {
                 return ResourceManager.GetString("NoAddedStudent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string NoRecordedStudent {
+            get {
+                return ResourceManager.GetString("NoRecordedStudent", resourceCulture);
             }
         }
         

@@ -63,6 +63,7 @@ public partial class AdminClassesViewModel : ClassesViewModelBase
     #region Commands
     public AddClassCommand AddClassCommand { get; set; }
     public ICommand ShowClassRosterCommand { get; set; }
+    public ICommand DeleteClassCommand { get; set; }
 
     #endregion
 
@@ -106,9 +107,75 @@ public partial class AdminClassesViewModel : ClassesViewModelBase
             },
             @class => @class != null
         );
+        DeleteClassCommand = new AsyncRelayCommand<ClassViewModel>(async @class =>
+        {
+            if (@class == null)
+            {
+                return;
+            }
+
+            try
+            {
+                await using var dbContext = new SchoolDbContext();
+                var classDatabase = new ClassDatabase(dbContext);
+                var classManager = new ClassManager(classDatabase);
+
+                var currentClass = await classManager.GetClassByIdAsync(@class.Id);
+
+                if (currentClass == null)
+                {
+                    return;
+                }
+
+                await classManager.DeleteClassAsync(currentClass);
+            }
+            catch (Exception ex)
+            {
+                FailedOperation?.Invoke(ex.Message);
+            }
+        },
+          CanDeleteClass);
 
     }
 
     #endregion
     
+    #region Private methods
+    
+// Helper method for CanExecute
+    private bool CanDeleteClass(ClassViewModel? @class)
+    {
+        if (@class == null)
+        {
+            return false;
+        }
+
+        try
+        {
+            using var dbContext = new SchoolDbContext();
+            var classDatabase = new ClassDatabase(dbContext);
+            var classManager = new ClassManager(classDatabase);
+
+            var currentClass = classManager.GetClassByIdAsync(@class.Id).Result; // Blocking call
+
+            if (currentClass == null)
+            {
+                return false;
+            }
+
+            var studentsTask = classManager.GetClassStudentsAsync(currentClass);
+            var subjectsTask = classManager.GetClassSubjectsAsync(currentClass);
+
+            Task.WhenAll(studentsTask, subjectsTask).Wait(); // Blocking call
+
+            return studentsTask.Result.Count == 0 && subjectsTask.Result.Count == 0;
+        }
+        catch (Exception ex)
+        {
+            FailedOperation?.Invoke(ex.Message);
+            return false;
+        }
+    }
+    
+    #endregion
 }
