@@ -4,6 +4,7 @@ using SchoolManagerModel.Persistence;
 using SchoolManagerModel.Validators;
 using SchoolManagerViewModel.EntityViewModels;
 using System.Windows.Input;
+using SchoolManagerModel.Utils;
 
 namespace SchoolManagerViewModel.Commands;
 
@@ -31,7 +32,7 @@ public class AddClassCommand : ICommand
 
         var nextClassId = _classesViewModel.Classes.Last().Id + 1;
         var className = $"{_classesViewModel.ClassYear}/{_classesViewModel.Class}";
-        var cls = new Class() { Id = nextClassId, Name = className };
+        var cls = new Class() { Id = nextClassId, Name = className.ToUpper() };
 
         try
         {
@@ -40,11 +41,13 @@ public class AddClassCommand : ICommand
             var classManager = new ClassManager(classDatabase);
             await classManager.AddClassAsync(cls);
             _classesViewModel.Classes.Add(_classesViewModel.Mapper.Map<ClassViewModel>(cls));
-            _classesViewModel.SuccessfulClassAdd?.Invoke();
+
+            var resourceManager = UIResourceFactory.GetNewResource();
+            _classesViewModel.SuccessfulOperation?.Invoke(resourceManager.GetStringOrDefault("SuccessfullyAdded"));
         }
         catch (Exception ex)
         {
-            _classesViewModel.FailedClassAdd?.Invoke(ex.Message);
+            _classesViewModel.FailedOperation?.Invoke(ex.Message);
         }
     }
 
