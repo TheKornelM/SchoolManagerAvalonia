@@ -1,21 +1,29 @@
-﻿using AutoMapper;
-using SchoolManagerModel.Entities;
+﻿
 using SchoolManagerModel.Utils;
 using SchoolManagerModel.Validators;
 using SchoolManagerViewModel.Commands;
 using SchoolManagerViewModel.EntityViewModels;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Resources;
+using System.Windows.Input;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using SchoolManagerModel.Managers;
+using SchoolManagerModel.Persistence;
 
 namespace SchoolManagerViewModel;
 
-public class AdminClassesViewModel : ClassesViewModelBase
+public partial class AdminClassesViewModel : ClassesViewModelBase
 {
     #region Private fields
-    private ObservableCollection<ClassViewModel> _classes = [];
     private string _classYear = string.Empty;
     private string _class = string.Empty;
+    
+    [ObservableProperty]
     private string _classValidationErrors = string.Empty;
+    
+    [ObservableProperty]
     private string _classYearValidationErrors = string.Empty;
 
     #endregion
@@ -43,53 +51,64 @@ public class AdminClassesViewModel : ClassesViewModelBase
             AddClassCommand.NotifyCanExecuteChanged();
         }
     }
-
-    public string ClassValidationErrors
-    {
-        get => _classValidationErrors;
-        set
-        {
-            SetField(ref _classValidationErrors, value, nameof(ClassValidationErrors));
-        }
-    }
-
-    public string ClassYearValidationErrors
-    {
-        get => _classYearValidationErrors;
-        set
-        {
-            SetField(ref _classYearValidationErrors, value, nameof(ClassYearValidationErrors));
-        }
-    }
-
+    
     public ResourceManager ResourceManager { get; private set; }
-    public Action? SuccessfulClassAdd { get; set; }
-    public Action<string>? FailedClassAdd { get; set; }
+    public Action<string>? SuccessfulOperation { get; set; }
+    public Action<string>? FailedOperation { get; set; }
+    public Action<ClassViewModel, List<string>>? DisplayClassRoster { get; set; }
 
 
     #endregion
 
     #region Commands
     public AddClassCommand AddClassCommand { get; set; }
+    public ICommand ShowClassRosterCommand { get; set; }
+    public ICommand DeleteClassCommand { get; set; }
 
     #endregion
 
     #region Constructor
-    public AdminClassesViewModel(ResourceManager resourceManager)
-    {
-        ResourceManager = resourceManager;
-        AddClassCommand = new AddClassCommand(this);
-        var mapperConfiguration = new MapperConfiguration(cfg =>
-        {
-            cfg.CreateMap<Class, ClassViewModel>();
-            cfg.CreateMap<ClassViewModel, Class>();
-        });
 
+    public AdminClassesViewModel()
+    {
+        ResourceManager = UIResourceFactory.GetNewResource();
+        AddClassCommand = new AddClassCommand(this);
+        ShowClassRosterCommand = GetShowClassRosterCommand();
+        DeleteClassCommand = GetDeleteClassCommand();
+    }
+    
+    #endregion
+    
+    #region Private methods
+    private RelayCommand<ClassViewModel> GetShowClassRosterCommand()
+    {
+        return new RelayCommand<ClassViewModel>(
+            cls =>
+            {
+                var command = new ShowClassRosterCommand(this, cls);
+                command.Execute(null);
+            },
+            cls =>
+            {
+                var command = new ShowClassRosterCommand(this, cls);
+                return command.CanExecute(null);
+            });
     }
 
-    #endregion
-
-    #region Private methods
+    private RelayCommand<ClassViewModel> GetDeleteClassCommand()
+    {
+        return new RelayCommand<ClassViewModel>(
+            @class =>
+            {
+                var command = new DeleteClassCommand(this, @class);
+                command.Execute(null);
+            },
+            @class =>
+            {
+                var command = new DeleteClassCommand(this, @class);
+                return command.CanExecute(null);
+            });
+    }
 
     #endregion
 }

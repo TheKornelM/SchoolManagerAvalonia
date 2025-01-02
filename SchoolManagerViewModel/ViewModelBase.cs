@@ -1,19 +1,20 @@
 ﻿using System.ComponentModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace SchoolManagerViewModel;
 
-public class ViewModelBase : INotifyPropertyChanged
+public class ViewModelBase : ObservableObject
 {
-    public event PropertyChangedEventHandler? PropertyChanged;
+    //public event PropertyChangedEventHandler? PropertyChanged;
 
-    protected virtual void OnPropertyChanged(string propertyName)
+    /*protected virtual void OnPropertyChanged(string propertyName)
     {
         PropertyChangedEventHandler? handler = PropertyChanged;
         if (handler != null)
         {
             handler(this, new PropertyChangedEventArgs(propertyName));
         }
-    }
+    }*/
 
     protected bool SetField<T>(ref T field, T value, string propertyName)
     {

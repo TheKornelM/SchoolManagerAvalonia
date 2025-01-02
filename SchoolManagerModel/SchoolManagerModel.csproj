@@ -7,13 +7,18 @@
   </PropertyGroup>
 
 <ItemGroup>
-  <PackageReference Include="FluentValidation" Version="11.10.0" />
-  <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.10" />
-  <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.10">
-    <PrivateAssets>all</PrivateAssets>
+	<PackageVersion Include="FluentValidation" Version="11.10.0" />
+	<PackageReference Include="FluentValidation"/>
+	<PackageVersion Include="Microsoft.EntityFrameworkCore" Version="8.0.10" />
+	<PackageReference Include="Microsoft.EntityFrameworkCore"/>
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.10"/>
+	<PackageReference Include="Microsoft.EntityFrameworkCore.Design">
+		  <PrivateAssets>all</PrivateAssets>
     <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
   </PackageReference>
-  <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.10" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite"/>
+	
 </ItemGroup>
 
 <ItemGroup>

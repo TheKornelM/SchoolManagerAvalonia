@@ -1,5 +1,6 @@
-﻿using SchoolManagerWPF.Commands;
+﻿using System.Diagnostics;
 using System.Windows.Input;
+using CommunityToolkit.Mvvm.Input;
 
 namespace SchoolManagerViewModel;
 

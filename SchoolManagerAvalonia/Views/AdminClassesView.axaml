@@ -1,0 +1,153 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:SchoolManagerViewModel;assembly=SchoolManagerViewModel"
+             xmlns:converters="clr-namespace:SchoolManagerAvalonia.Converters"
+             xmlns:resx="clr-namespace:SchoolManagerModel.Resources;assembly=SchoolManagerModel"
+             xmlns:dialogHostAvalonia="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="SchoolManagerAvalonia.AdminClassesView"
+             x:DataType="vm:AdminClassesViewModel"
+             >
+    
+    <Design.DataContext>
+        <vm:AdminClassesViewModel></vm:AdminClassesViewModel>
+    </Design.DataContext>
+    
+    <UserControl.Resources>
+        <converters:StringToVisibilityConverter x:Key="StringToVisibilityConverter" />
+    </UserControl.Resources>
+    <ScrollViewer>
+        <Grid Name="ClassesGrid"
+              RowDefinitions="auto,30,auto,30,auto,auto,15,auto,auto,30,auto,*"
+              ColumnDefinitions="auto,30,auto,*">
+            <!-- Title Row -->
+            <Label Classes="h1" Content="{x:Static resx:UI.Classes}" Grid.Row="0" Grid.ColumnSpan="4"/>
+            
+            <!-- DataGrid Row -->
+            <DataGrid ItemsSource="{Binding Classes}"
+                      AutoGenerateColumns="False"
+                      IsReadOnly="True"
+                      HorizontalAlignment="Left"
+                      Grid.Row="2"
+                      Grid.ColumnSpan="4" Grid.Column="0">
+                <DataGrid.Styles>
+                    <Style Selector="DataGridRow">
+                        <Setter Property="Height" Value="50"/>
+                    </Style>
+                </DataGrid.Styles>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="{x:Static resx:UI.ID}"
+                                        Binding="{Binding Id}"
+                                        IsReadOnly="True" />
+                    <DataGridTextColumn Header="{x:Static resx:UI.Name}"
+                                        Binding="{Binding Name}" />
+                    <DataGridTemplateColumn Header="{x:Static resx:UI.Actions}">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" Spacing="5">
+                                    <Button Content="{x:Static resx:UI.Roster}"
+                                            Classes="basic"
+                                                    Command="{Binding ((vm:AdminClassesViewModel)DataContext).ShowClassRosterCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                    CommandParameter="{Binding}" >
+                                        <Button.ContentTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                    <!--Path Data="{StaticResource Delete}" Fill="White" Width="10" Height="10" VerticalAlignment="Center"/-->
+                                                    <TextBlock Text="{x:Static resx:UI.Roster}" Foreground="White" VerticalAlignment="Center"/>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </Button.ContentTemplate>
+                                    </Button>
+                                    <Button 
+                                            Classes="delete"                  
+                                            Command="{Binding ((vm:AdminClassesViewModel)DataContext).DeleteClassCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                            CommandParameter="{Binding}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <!-- Class Year -->
+            <Label Content="{x:Static resx:UI.ClassYear}"
+                   Grid.Row="4"
+                   Grid.Column="0"
+                   HorizontalAlignment="Stretch"
+                   VerticalAlignment="Center" />
+            <TextBox Text="{Binding ClassYear, Mode=TwoWay}"
+                     Grid.Row="4"
+                     Grid.Column="2"
+                     MinWidth="100"
+                     VerticalAlignment="Center" />
+
+            <!-- Validation Errors for Class Year -->
+            <Grid Grid.Row="5"
+                  Grid.Column="0"
+                  Grid.ColumnSpan="4"
+                  Name="ClassYearValidationErrorsGrid"
+                  IsVisible="{Binding ClassYearValidationErrors, Converter={StaticResource StringToVisibilityConverter}}">
+                <Label VerticalAlignment="Top"
+                       FontWeight="Bold"
+                       HorizontalAlignment="Stretch"
+                       Width="{Binding Width, ElementName=ClassYearValidationErrorsGrid, Mode=OneWay}">
+                    <TextBlock TextWrapping="Wrap"
+                               Text="{Binding ClassYearValidationErrors}"
+                               HorizontalAlignment="Stretch"
+                               Background="{x:Null}"
+                               Foreground="Red" />
+                </Label>
+            </Grid>
+
+            <!-- Class -->
+            <Label Content="{x:Static resx:UI.Class}"
+                   Grid.Row="7"
+                   Grid.Column="0"
+                   VerticalAlignment="Center" />
+            <TextBox Text="{Binding Class}"
+                     Grid.Row="7"
+                     Grid.Column="2"
+                     MinWidth="100"
+                     VerticalAlignment="Center" />
+
+            <!-- Validation Errors for Class -->
+            <Grid Grid.Row="8"
+                  Grid.Column="0"
+                  Grid.ColumnSpan="4"
+                  Name="ClassValidationErrorsGrid"
+                  IsVisible="{Binding ClassValidationErrors, Converter={StaticResource StringToVisibilityConverter}}">
+                <Label VerticalAlignment="Top"
+                       FontWeight="Bold"
+                       HorizontalAlignment="Stretch"
+                       Width="{Binding Width, ElementName=ClassValidationErrorsGrid, Mode=OneWay}">
+                    <TextBlock TextWrapping="Wrap"
+                               Text="{Binding ClassValidationErrors}"
+                               HorizontalAlignment="Stretch"
+                               Background="{x:Null}"
+                               Foreground="Red" />
+                </Label>
+            </Grid>
+
+            <!-- Button -->
+            <Button Content="{x:Static resx:UI.AddClass}"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Stretch"
+                    Command="{Binding AddClassCommand}"
+                    Padding="10"
+                    Grid.Row="10"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="3"
+                    Height="65" />
+
+            <!-- Dialog Host -->
+            <dialogHostAvalonia:DialogHost Identifier="MainDialogHost"
+                                           Grid.Column="0"
+                                           Grid.ColumnSpan="4"
+                                           Grid.Row="0" Grid.RowSpan="12">
+                <Grid></Grid>
+            </dialogHostAvalonia:DialogHost>
+        </Grid>
+    </ScrollViewer>
+</UserControl>

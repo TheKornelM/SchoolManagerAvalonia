@@ -1,0 +1,114 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:converters="clr-namespace:SchoolManagerAvalonia.Converters"
+             xmlns:resx="clr-namespace:SchoolManagerModel.Resources;assembly=SchoolManagerModel"
+             xmlns:vm="clr-namespace:SchoolManagerViewModel;assembly=SchoolManagerViewModel"
+             xmlns:controls="clr-namespace:SchoolManagerAvalonia.Controls"
+             xmlns:dialogHostAvalonia="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="SchoolManagerAvalonia.Views.AddUserView"
+             x:Name="Users"
+             x:DataType="vm:AddUserViewModel">
+    <UserControl.Resources>
+        <converters:RoleToIntConverter x:Key="RoleToIntConverter" />
+        <converters:IntToBooleanConverter x:Key="IntToBooleanConverter" />
+    </UserControl.Resources>
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Grid>
+            <StackPanel Spacing="15" HorizontalAlignment="Stretch">
+                <!-- Header -->
+                <Label Classes="h1" Content="{x:Static resx:UI.AddUser}" HorizontalAlignment="Left" />
+
+                <!-- User Input Fields -->
+                <controls:ValidatedTextBox LabelContent="{x:Static resx:UI.Username}"
+                                           FieldValue="{Binding User.Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                           ValidationError="{Binding User.UsernameValidatorErrors}" />
+
+                <controls:ValidatedTextBox LabelContent="{x:Static resx:UI.FirstName}"
+                                           FieldValue="{Binding User.FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                           ValidationError="{Binding User.FirstNameValidatorErrors}" />
+
+                <controls:ValidatedTextBox LabelContent="{x:Static resx:UI.LastName}"
+                                           FieldValue="{Binding User.LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                           ValidationError="{Binding User.LastNameValidatorErrors}" />
+
+                <controls:ValidatedPasswordField LabelContent="{x:Static resx:UI.Password}"
+                                                 Password="{Binding User.Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                 ValidationError="{Binding User.PasswordValidatorErrors}" />
+
+                <controls:ValidatedPasswordField LabelContent="{x:Static resx:UI.ConfirmPassword}"
+                                                 Password="{Binding User.ConfirmPassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                 ValidationError="{Binding User.ConfirmPasswordValidatorErrors}" />
+
+                <controls:ValidatedTextBox LabelContent="{x:Static resx:UI.EmailAddress}"
+                                           FieldValue="{Binding User.Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                           ValidationError="{Binding User.EmailValidatorErrors}" />
+
+                <!-- Role Selection -->
+                <StackPanel Margin="0,0,0,30">
+                    <Label Content="{x:Static resx:UI.Role}" />
+                    <ComboBox SelectedIndex="{Binding SelectedRole, Converter={StaticResource RoleToIntConverter}}"
+                              HorizontalAlignment="Stretch">
+                        <ComboBoxItem Content="{x:Static resx:UI.Student}" />
+                        <ComboBoxItem Content="{x:Static resx:UI.Teacher}" />
+                        <ComboBoxItem Content="{x:Static resx:UI.Administrator}" />
+                    </ComboBox>
+                </StackPanel>
+
+
+                <!-- Conditional Student-Specific UI -->
+                <StackPanel Spacing="40" IsVisible="{Binding IsStudent}" HorizontalAlignment="Stretch">
+                    <!-- Class Selection -->
+                    <StackPanel>
+                        <Label Content="{x:Static resx:UI.Class}" />
+                        <ComboBox ItemsSource="{Binding Classes}"
+                                  SelectedItem="{Binding Class}"
+                                  DisplayMemberBinding="{Binding Name}" />
+                    </StackPanel>
+
+
+                    <!-- Subjects Selection -->
+                    <StackPanel Spacing="15">
+                        <StackPanel>
+                            <Label Content="{x:Static resx:UI.AssignedSubjects}"
+                                   IsVisible="{Binding Subjects.Count, Converter={StaticResource IntToBooleanConverter}}" />
+                            <controls:CheckBoxList
+                                Objects="{Binding Subjects, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                AllSubjectsSelected="{Binding AllSubjectsSelected, Mode=TwoWay}"
+                                IsVisible="{Binding Subjects.Count, Converter={StaticResource IntToBooleanConverter}}" />
+                        </StackPanel>
+                      
+                        <!-- Select All/Unselect All Button -->
+                        <Button Command="{Binding SelectAllSubjectsCommand}"
+                                MinHeight="50"
+                                HorizontalAlignment="Stretch"
+                                Classes.AllSelected="{Binding AllSubjectsSelected}"
+                                Classes.NotAllSelected="{Binding !AllSubjectsSelected}">
+                            <Button.Styles>
+                                <Style Selector="Button.AllSelected">
+                                    <Setter Property="Content"
+                                            Value="{x:Static resx:UI.UnselectAll}" />
+                                </Style>
+                                <Style Selector="Button.NotAllSelected">
+                                    <Setter Property="Content"
+                                            Value="{x:Static resx:UI.SelectAll}" />
+                                </Style>
+                            </Button.Styles>
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+
+                <!-- Add User Button -->
+                <Button Content="{x:Static resx:UI.AddUser}"
+                        HorizontalAlignment="Stretch"
+                        Height="50"
+                        Command="{Binding AddUserCommand}" />
+
+            </StackPanel>
+            <dialogHostAvalonia:DialogHost Identifier="MainDialogHost"/>
+        </Grid>
+    </ScrollViewer>
+</UserControl>

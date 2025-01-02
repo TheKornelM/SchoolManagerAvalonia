@@ -1,0 +1,82 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:SchoolManagerViewModel;assembly=SchoolManagerViewModel"
+             xmlns:system="clr-namespace:System;assembly=System.Runtime"
+             xmlns:resx="clr-namespace:SchoolManagerModel.Resources;assembly=SchoolManagerModel"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="SchoolManagerAvalonia.UsersView" x:DataType="vm:FilterUsersViewModel">
+    <UserControl.Resources>
+        <!-- Shared Values -->
+        <Thickness x:Key="StandardMargin">30</Thickness>
+        <Thickness x:Key="StandardPadding">10</Thickness>
+
+        <!-- Style for TextBox to prevent resizing -->
+
+    </UserControl.Resources>
+    
+    <UserControl.Styles>
+        <Style Selector="TextBox">
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="TextWrapping" Value="NoWrap" />
+        </Style>
+    </UserControl.Styles>
+
+    
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                  VerticalScrollBarVisibility="Auto">
+        <Grid RowDefinitions="auto,30,auto" ColumnDefinitions="*,*">
+
+            <!-- Filter users -->
+            <StackPanel Grid.Row="0" HorizontalAlignment="Stretch" Spacing="15">
+                <Label Content="{x:Static resx:UI.Filter}"
+                       FontWeight="Bold" />
+                <StackPanel>
+                    <Label Content="{x:Static resx:UI.Username}" />
+                    <TextBox Text="{Binding UsernameFilter}" VerticalAlignment="Center" />
+                </StackPanel>
+                <StackPanel>
+                    <Label Content="{x:Static resx:UI.EmailAddress}" />
+                    <TextBox Text="{Binding EmailFilter}" VerticalAlignment="Center" />
+                </StackPanel>
+                <StackPanel>
+                    <Label Content="{x:Static resx:UI.FirstName}" />
+                    <TextBox Text="{Binding FirstNameFilter}" VerticalAlignment="Center" />
+                </StackPanel>
+                <StackPanel>
+                    <Label Content="{x:Static resx:UI.LastName}" />
+                    <TextBox Text="{Binding LastNameFilter}" VerticalAlignment="Center" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Spacing="15">
+                    <Button Content="{x:Static resx:UI.ResetFilters}"
+                            Command="{Binding ResetUserFilterCommand}"
+                            HorizontalAlignment="Left"
+                            Padding="{StaticResource StandardPadding}" />
+                    <!--<Button Content="Add user" Padding="{StaticResource StandardPadding}" />-->
+                </StackPanel>
+            </StackPanel>
+
+            <!-- Show users -->
+            <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Spacing="15">
+                <Label Content="{x:Static resx:UI.Users}"
+                       FontWeight="Bold" />
+
+                <DataGrid VerticalAlignment="Stretch"
+                          ItemsSource="{Binding Users}"
+                          IsReadOnly="True"
+                          AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="{x:Static resx:UI.Username}"
+                                            Binding="{Binding Username}" />
+                        <DataGridTextColumn Header="{x:Static resx:UI.Name}"
+                                            Binding="{Binding Name}" />
+                        <DataGridTextColumn Header="{x:Static resx:UI.EmailAddress}"
+                                            Binding="{Binding Email}" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+</UserControl>

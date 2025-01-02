@@ -3,10 +3,10 @@ using SchoolManagerModel.Entities.UserModel;
 using SchoolManagerModel.Managers;
 using SchoolManagerModel.Persistence;
 using SchoolManagerModel.Utils;
-using SchoolManagerWPF.Commands;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Windows.Input;
+using CommunityToolkit.Mvvm.Input;
 
 namespace SchoolManagerViewModel;
 
@@ -16,7 +16,7 @@ public class AddShowMarksViewModel : ViewModelBase
     private bool _isSubjectSelected;
     private bool _isStudentSelected;
     private ObservableCollection<int> _grades = new() { 1, 2, 3, 4, 5 };
-    private Teacher _teacher;
+    public Teacher? Teacher { get; set; }
     private ObservableCollection<Subject> _subjects = [];
     private ObservableCollection<Student> _students = [];
     private ObservableCollection<Mark> _studentSubjectMarks = [];
@@ -73,9 +73,9 @@ public class AddShowMarksViewModel : ViewModelBase
     #endregion
 
     #region Constructor
-    public AddShowMarksViewModel(Teacher teacher)
+    public AddShowMarksViewModel()
     {
-        _teacher = teacher;
+        //_teacher = teacher;
         AddMarkCommand = new RelayCommand(AddMark, CanAddMark);
         Mark.Grade = 1;
         Mark.PropertyChanged += async (_, e) =>
@@ -106,11 +106,16 @@ public class AddShowMarksViewModel : ViewModelBase
     #region Public methods
     public async Task LoadSubjectsAsync()
     {
-        using var dbContext = new SchoolDbContext();
+        if (Teacher == null)
+        {
+            return;
+        }
+        
+        await using var dbContext = new SchoolDbContext();
         var teacherDatabase = new TeacherDatabase(dbContext);
         var teacherManager = new TeacherManager(teacherDatabase);
 
-        var result = await teacherManager.GetCurrentTaughtSubjectsAsync(_teacher);
+        var result = await teacherManager.GetCurrentTaughtSubjectsAsync(Teacher);
         Subjects = new ObservableCollection<Subject>(result);
         Mark.Subject = Subjects.FirstOrDefault();
     }
