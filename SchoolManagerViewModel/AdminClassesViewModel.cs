@@ -11,6 +11,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using SchoolManagerModel.Managers;
 using SchoolManagerModel.Persistence;
+using RelayCommand = SchoolManagerWPF.Commands.RelayCommand;
 
 namespace SchoolManagerViewModel;
 
@@ -68,118 +69,47 @@ public partial class AdminClassesViewModel : ClassesViewModelBase
     #endregion
 
     #region Constructor
+
     public AdminClassesViewModel()
     {
         ResourceManager = UIResourceFactory.GetNewResource();
         AddClassCommand = new AddClassCommand(this);
-        ShowClassRosterCommand = new AsyncRelayCommand<ClassViewModel>(
-            async @class =>
-            {
-                if (@class == null)
-                {
-                    return;
-                }
-
-                try
-                {
-                    await using var dbContext = new SchoolDbContext();
-                    var classDatabase = new ClassDatabase(dbContext);
-                    var classManager = new ClassManager(classDatabase);
-
-                    // Fetch class and students asynchronously
-                    var currentClass = await classManager.GetClassByIdAsync(@class.Id);
-
-                    if (currentClass == null)
-                    {
-                        return;
-                    }
-                    
-                    var students = await classManager.GetClassStudentsAsync(currentClass);
-
-                    // Invoke the display action with the retrieved data
-                    DisplayClassRoster?.Invoke(@class, students.Select(x => x.Name).ToList());
-                }
-                catch (Exception ex)
-                {
-                    // Log or handle the exception (depending on your application's logging strategy)
-                    FailedOperation?.Invoke(ex.Message);
-                }
-            },
-            @class => @class != null
-        );
-        DeleteClassCommand = new AsyncRelayCommand<ClassViewModel>(async @class =>
-        {
-            if (@class == null)
-            {
-                return;
-            }
-
-            try
-            {
-                await using var dbContext = new SchoolDbContext();
-                var classDatabase = new ClassDatabase(dbContext);
-                var classManager = new ClassManager(classDatabase);
-
-                var currentClass = await classManager.GetClassByIdAsync(@class.Id);
-
-                if (currentClass == null)
-                {
-                    return;
-                }
-
-                await classManager.DeleteClassAsync(currentClass);
-                Classes.Remove(@class);
-                
-                var resourceManager = UIResourceFactory.GetNewResource();
-                SuccessfulOperation?.Invoke(resourceManager.GetStringOrDefault("SuccessfullyDeleted"));
-            }
-            catch (Exception ex)
-            {
-                FailedOperation?.Invoke(ex.Message);
-            }
-        },
-          CanDeleteClass);
-
+        ShowClassRosterCommand = GetShowClassRosterCommand();
+        DeleteClassCommand = GetDeleteClassCommand();
     }
-
+    
     #endregion
     
     #region Private methods
-    
-// Helper method for CanExecute
-    private bool CanDeleteClass(ClassViewModel? @class)
+    private RelayCommand<ClassViewModel> GetShowClassRosterCommand()
     {
-        if (@class == null)
-        {
-            return false;
-        }
-
-        try
-        {
-            using var dbContext = new SchoolDbContext();
-            var classDatabase = new ClassDatabase(dbContext);
-            var classManager = new ClassManager(classDatabase);
-
-            var currentClass = classManager.GetClassByIdAsync(@class.Id).Result; // Blocking call
-
-            if (currentClass == null)
+        return new RelayCommand<ClassViewModel>(
+            cls =>
             {
-                return false;
-            }
-
-            var studentsTask = classManager.GetClassStudentsAsync(currentClass);
-            var subjectsTask = classManager.GetClassSubjectsAsync(currentClass);
-
-            Task.WhenAll(studentsTask, subjectsTask).Wait(); // Blocking call
-
-            return studentsTask.Result.Count == 0 && subjectsTask.Result.Count == 0;
-        }
-        catch (Exception ex)
-        {
-            FailedOperation?.Invoke(ex.Message);
-            return false;
-        }
+                var command = new ShowClassRosterCommand(this, cls);
+                command.Execute(null);
+            },
+            cls =>
+            {
+                var command = new ShowClassRosterCommand(this, cls);
+                return command.CanExecute(null);
+            });
     }
-    
+
+    private RelayCommand<ClassViewModel> GetDeleteClassCommand()
+    {
+        return new RelayCommand<ClassViewModel>(
+            @class =>
+            {
+                var command = new DeleteClassCommand(this, @class);
+                command.Execute(null);
+            },
+            @class =>
+            {
+                var command = new DeleteClassCommand(this, @class);
+                return command.CanExecute(null);
+            });
+    }
+
     #endregion
 }
