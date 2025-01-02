@@ -4,6 +4,7 @@ using SchoolManagerModel.Validators;
 using SchoolManagerViewModel.Commands;
 using SchoolManagerViewModel.EntityViewModels;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Resources;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -16,7 +17,6 @@ namespace SchoolManagerViewModel;
 public partial class AdminClassesViewModel : ClassesViewModelBase
 {
     #region Private fields
-    private ObservableCollection<ClassViewModel> _classes = [];
     private string _classYear = string.Empty;
     private string _class = string.Empty;
     
@@ -53,7 +53,7 @@ public partial class AdminClassesViewModel : ClassesViewModelBase
     }
     
     public ResourceManager ResourceManager { get; private set; }
-    public Action? SuccessfulClassAdd { get; set; }
+    public Action<string>? SuccessfulOperation { get; set; }
     public Action<string>? FailedOperation { get; set; }
     public Action<ClassViewModel, List<string>>? DisplayClassRoster { get; set; }
 
@@ -128,6 +128,10 @@ public partial class AdminClassesViewModel : ClassesViewModelBase
                 }
 
                 await classManager.DeleteClassAsync(currentClass);
+                Classes.Remove(@class);
+                
+                var resourceManager = UIResourceFactory.GetNewResource();
+                SuccessfulOperation?.Invoke(resourceManager.GetStringOrDefault("SuccessfullyDeleted"));
             }
             catch (Exception ex)
             {

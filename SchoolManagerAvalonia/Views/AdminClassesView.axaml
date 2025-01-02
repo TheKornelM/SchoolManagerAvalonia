@@ -23,7 +23,7 @@
               RowDefinitions="auto,30,auto,30,auto,auto,15,auto,auto,30,auto,*"
               ColumnDefinitions="auto,30,auto,*">
             <!-- Title Row -->
-            <Label Classes="h1" Content="Add class" Grid.Row="0" Grid.ColumnSpan="4"/>
+            <Label Classes="h1" Content="{x:Static resx:UI.Classes}" Grid.Row="0" Grid.ColumnSpan="4"/>
             
             <!-- DataGrid Row -->
             <DataGrid ItemsSource="{Binding Classes}"
@@ -32,20 +32,36 @@
                       HorizontalAlignment="Left"
                       Grid.Row="2"
                       Grid.ColumnSpan="4" Grid.Column="0">
+                <DataGrid.Styles>
+                    <Style Selector="DataGridRow">
+                        <Setter Property="Height" Value="50"/>
+                    </Style>
+                </DataGrid.Styles>
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="{x:Static resx:UI.ID}"
                                         Binding="{Binding Id}"
                                         IsReadOnly="True" />
                     <DataGridTextColumn Header="{x:Static resx:UI.Name}"
                                         Binding="{Binding Name}" />
-                    <DataGridTemplateColumn Header="{x:Static resx:UI.Roster}">
+                    <DataGridTemplateColumn Header="{x:Static resx:UI.Actions}">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
+                                <StackPanel Orientation="Horizontal" Spacing="5">
                                     <Button Content="{x:Static resx:UI.Roster}"
+                                            Classes="basic"
                                                     Command="{Binding ((vm:AdminClassesViewModel)DataContext).ShowClassRosterCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                                    CommandParameter="{Binding}" />
-                                    <Button Content="{x:Static resx:UI.Delete}"
+                                                    CommandParameter="{Binding}" >
+                                        <Button.ContentTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                    <!--Path Data="{StaticResource Delete}" Fill="White" Width="10" Height="10" VerticalAlignment="Center"/-->
+                                                    <TextBlock Text="{x:Static resx:UI.Roster}" Foreground="White" VerticalAlignment="Center"/>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </Button.ContentTemplate>
+                                    </Button>
+                                    <Button 
+                                            Classes="delete"                  
                                             Command="{Binding ((vm:AdminClassesViewModel)DataContext).DeleteClassCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                             CommandParameter="{Binding}" />
                                 </StackPanel>

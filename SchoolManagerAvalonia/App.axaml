@@ -3,7 +3,9 @@
              xmlns:local="using:SchoolManagerAvalonia"
              xmlns:dialogHostAvalonia="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
              x:Class="SchoolManagerAvalonia.App"
-             RequestedThemeVariant="Default">
+             RequestedThemeVariant="Default"
+             xmlns:resx="clr-namespace:SchoolManagerModel.Resources;assembly=SchoolManagerModel"
+             >
              <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
 
 	<Application.Resources>
@@ -40,6 +42,28 @@
 				<Setter Property="HorizontalContentAlignment" Value="Center" />
 				<Setter Property="VerticalContentAlignment" Value="Center" />
 			</Style>
+        
+        <Style Selector="Button.delete">
+	        <Setter Property="Background" Value="DarkRed"/>
+	        <Setter Property="Foreground" Value="White"/>
+	        <Setter Property="ContentTemplate">
+		        <Setter.Value>
+			        <DataTemplate>
+				        <StackPanel Orientation="Horizontal" Spacing="5" VerticalAlignment="Center" HorizontalAlignment="Center">
+					        <!--Path Data="{StaticResource Delete}" Fill="White" Width="10" Height="10" VerticalAlignment="Center"/-->
+					        <TextBlock Text="{x:Static resx:UI.Delete}" Foreground="White" VerticalAlignment="Center"/>
+				        </StackPanel>
+			        </DataTemplate>
+		        </Setter.Value>
+	        </Setter>
+        </Style>
+        
+        <Style Selector="Button.basic">
+	        <Setter Property="Background" Value="DarkBlue"/>
+	        <Setter Property="Foreground" Value="White"/>
+        </Style>
+
+
 	</Application.Styles>
 
 </Application>

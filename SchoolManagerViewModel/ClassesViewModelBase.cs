@@ -24,9 +24,7 @@ public class ClassesViewModelBase : ViewModelBase
     public Mapper Mapper { get; private set; }
 
     #endregion
-
-    #region Commands
-    #endregion
+    
 
     #region Constructor
     public ClassesViewModelBase()

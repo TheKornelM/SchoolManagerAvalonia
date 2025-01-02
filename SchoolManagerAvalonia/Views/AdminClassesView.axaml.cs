@@ -1,15 +1,8 @@
-using System.Linq;
-using System.Resources;
-using Avalonia;
+
 using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
 using AvaloniaDialogs.Views;
-using SchoolManagerAvalonia.Views;
-using SchoolManagerModel.Entities;
-using SchoolManagerModel.Managers;
 using SchoolManagerModel.Utils;
 using SchoolManagerViewModel;
-using SchoolManagerViewModel.EntityViewModels;
 
 namespace SchoolManagerAvalonia;
 
@@ -26,12 +19,12 @@ public partial class AdminClassesView : UserControl
         var resourceManager = UIResourceFactory.GetNewResource();
         var classesViewModel = new AdminClassesViewModel();
         
-        classesViewModel.SuccessfulClassAdd = async () =>
+        classesViewModel.SuccessfulOperation = async (message) =>
         {
             DataContext = GetNewClassesViewModel();
             SingleActionDialog dialog = new()
             {
-                Message = resourceManager.GetStringOrDefault("SuccessfullyAdded"),
+                Message = message,
                 ButtonText = "Ok"
             };
 

@@ -303,4 +303,10 @@
   <data name="Delete" xml:space="preserve">
     <value>Törlés</value>
   </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Műveletek</value>
+  </data>
+  <data name="SuccessfullyDeleted" xml:space="preserve">
+    <value>Sikeres törlés!</value>
+  </data>
 </root>
