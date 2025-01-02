@@ -3,14 +3,14 @@ using SchoolManagerModel.Entities.UserModel;
 
 namespace SchoolManagerAvalonia.Views;
 
-public partial class AdminView : UserControl
+public partial class NavView : UserControl
 {
-    public AdminView(User user) : this()
+    public NavView(User user) : this()
     {
 
     }
 
-    public AdminView()
+    public NavView()
     {
         InitializeComponent();
     }

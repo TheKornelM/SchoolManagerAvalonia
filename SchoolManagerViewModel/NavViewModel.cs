@@ -77,6 +77,12 @@ public partial class NavViewModel : ObservableObject
         {
             await LoadSubjects(addShowMarksViewModel);
         }
+
+        if (vm is StudentMarksViewModel studentMarksViewModel)
+        {
+            studentMarksViewModel.Student = await GetStudent(User);
+            await studentMarksViewModel.LoadMarksAsync();
+        }
         
         CurrentPage = vmb;
     }
@@ -107,6 +113,17 @@ public partial class NavViewModel : ObservableObject
         await addShowMarksViewModel.LoadSubjectsAsync();
     }
 
+    private async Task<Student> GetStudent(User user)
+    {
+        await using var dbContext = new SchoolDbContext();
+        var dataHandler = new UserDatabase(dbContext);
+        var userManager = new UserManager(dataHandler);
+
+        var student = await userManager.GetStudentByUserAsync(user);
+
+        return student;
+    }
+
     public required EventHandler LogoutRequested { get; set; }
 
     public void LoadAdminNavigationItems()
@@ -132,6 +149,16 @@ public partial class NavViewModel : ObservableObject
     {
         Items = new ObservableCollection<ListItemTemplate>([
             new ListItemTemplate(typeof(AddShowMarksViewModel), "PersonRegular",
+                ResourceManager.GetStringOrDefault("Marks"))
+        ]);
+        
+        SelectedListItem = Items.First();
+    }
+
+    public void LoadStudentNavigationItems()
+    {
+        Items = new ObservableCollection<ListItemTemplate>([
+            new ListItemTemplate(typeof(StudentMarksViewModel), "PersonRegular",
                 ResourceManager.GetStringOrDefault("Marks"))
         ]);
         

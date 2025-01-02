@@ -27,7 +27,11 @@ public partial class App : Application
     {
         var locator = new ViewLocator();
         DataTemplates.Add(locator);
+        
+        CultureInfo.CurrentUICulture = new CultureInfo("hu-HU");
+        
         ShowLoginView();
+        
 
         base.OnFrameworkInitializationCompleted();
     }
@@ -61,7 +65,18 @@ public partial class App : Application
 
         vm.ShowStudentInterface = (student) =>
         {
-            ShowManagerWindow(new StudentView(student));
+            var navViewModel = new NavViewModel(student.User)
+            {
+                LogoutRequested = LogoutRequested
+            };
+            
+            navViewModel.LoadStudentNavigationItems();
+
+            ShowManagerWindow(new NavView(student.User)
+            {
+                DataContext = navViewModel
+            });        
+            
         };
         vm.ShowAdminInterface = (admin) =>
         {
@@ -72,7 +87,7 @@ public partial class App : Application
             
             navViewModel.LoadAdminNavigationItems();
 
-            ShowManagerWindow(new AdminView(admin.User)
+            ShowManagerWindow(new NavView(admin.User)
             {
                 DataContext = navViewModel
             });
@@ -86,7 +101,7 @@ public partial class App : Application
             
             navViewModel.LoadTeacherNavigationItems();
             
-            ShowManagerWindow(new AdminView(teacher.User)
+            ShowManagerWindow(new NavView(teacher.User)
             {
                 DataContext = navViewModel
             });
