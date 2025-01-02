@@ -11,7 +11,6 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using SchoolManagerModel.Managers;
 using SchoolManagerModel.Persistence;
-using RelayCommand = SchoolManagerWPF.Commands.RelayCommand;
 
 namespace SchoolManagerViewModel;
 

@@ -3,10 +3,10 @@ using SchoolManagerModel.Entities.UserModel;
 using SchoolManagerModel.Managers;
 using SchoolManagerModel.Persistence;
 using SchoolManagerModel.Utils;
-using SchoolManagerWPF.Commands;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Windows.Input;
+using CommunityToolkit.Mvvm.Input;
 
 namespace SchoolManagerViewModel;
 
