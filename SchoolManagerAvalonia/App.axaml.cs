@@ -27,7 +27,11 @@ public partial class App : Application
     {
         var locator = new ViewLocator();
         DataTemplates.Add(locator);
+        
+        CultureInfo.CurrentUICulture = new CultureInfo("hu-HU");
+        
         ShowLoginView();
+        
 
         base.OnFrameworkInitializationCompleted();
     }
@@ -61,7 +65,18 @@ public partial class App : Application
 
         vm.ShowStudentInterface = (student) =>
         {
-            ShowManagerWindow(new StudentView(student));
+            var navViewModel = new NavViewModel(student.User)
+            {
+                LogoutRequested = LogoutRequested
+            };
+            
+            navViewModel.LoadStudentNavigationItems();
+
+            ShowManagerWindow(new NavView(student.User)
+            {
+                DataContext = navViewModel
+            });        
+            
         };
         vm.ShowAdminInterface = (admin) =>
         {
@@ -69,15 +84,27 @@ public partial class App : Application
             {
                 LogoutRequested = LogoutRequested
             };
+            
+            navViewModel.LoadAdminNavigationItems();
 
-            ShowManagerWindow(new AdminView(admin)
+            ShowManagerWindow(new NavView(admin.User)
             {
                 DataContext = navViewModel
             });
         };
         vm.ShowTeacherInterface = (teacher) =>
         {
-            ShowManagerWindow(new TeacherView(teacher));
+            var navViewModel = new NavViewModel(teacher.User)
+            {
+                LogoutRequested = LogoutRequested
+            };
+            
+            navViewModel.LoadTeacherNavigationItems();
+            
+            ShowManagerWindow(new NavView(teacher.User)
+            {
+                DataContext = navViewModel
+            });
         };
 
         return vm;
@@ -106,8 +133,6 @@ public partial class App : Application
 
     public void ShowLoginView()
     {
-        Debug.WriteLine(CultureInfo.CurrentCulture);
-
         var view = new LoginView()
         {
             DataContext = getLoginViewModel()

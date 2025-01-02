@@ -2,8 +2,11 @@
 using CommunityToolkit.Mvvm.Input;
 using SchoolManagerModel.Entities.UserModel;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Resources;
 using System.Runtime.InteropServices;
+using SchoolManagerModel.Managers;
+using SchoolManagerModel.Persistence;
 using SchoolManagerModel.Utils;
 using SchoolManagerViewModel.Utils;
 
@@ -11,7 +14,8 @@ namespace SchoolManagerViewModel;
 public partial class NavViewModel : ObservableObject
 {
     public User User { get; set; }
-    private ResourceManager ResourceManager { get; set; } = UIResourceFactory.GetNewResource();  
+    private ResourceManager ResourceManager { get; set; } = UIResourceFactory.GetNewResource();
+    private List<ListItemTemplate> ListItemTemplates { get; set;  } = [];
 
     public NavViewModel(User user) : this()
     {
@@ -28,15 +32,7 @@ public partial class NavViewModel : ObservableObject
         };
         #endif
         
-        List<ListItemTemplate> templates = [
-            new(typeof(FilterUsersViewModel), "PersonRegular", ResourceManager.GetStringOrDefault("Users")),
-            new(typeof(AddUserViewModel), "PersonRegular", ResourceManager.GetStringOrDefault("AddUser")),
-            new(typeof(AdminClassesViewModel), "ClassRegular", ResourceManager.GetStringOrDefault("Classes")),
-            new(typeof(AddSubjectViewModel), "NotepadRegular", ResourceManager.GetStringOrDefault("AddSubject")),
-        ];
-        
-        Items = new ObservableCollection<ListItemTemplate>(templates);
-        SelectedListItem = Items.First();
+        Items = new ObservableCollection<ListItemTemplate>(ListItemTemplates);
         
         /*
          * On desktop, the collapsed navbar is 40 pixels width to show menu icons.
@@ -61,13 +57,9 @@ public partial class NavViewModel : ObservableObject
 
     public int CollapsedNavbarWidth { get; set; } = 65;
 
-    partial void OnSelectedListItemChanged(ListItemTemplate? value)
+    async partial void OnSelectedListItemChanged(ListItemTemplate? value)
     {
         if (value is null) return;
-
-        /* var vm = Design.IsDesignMode
-             ? Activator.CreateInstance(value.ModelType)
-             : Ioc.Default.GetService(value.ModelType);*/
 
         if (SystemInfo.IsMobilePlatform())
         {
@@ -76,12 +68,26 @@ public partial class NavViewModel : ObservableObject
         
         var vm = Activator.CreateInstance(value.ModelType);
 
-        if (vm is not ViewModelBase vmb) return;
+        if (vm is not ViewModelBase vmb)
+        {
+            return;
+        }
+
+        if (vm is AddShowMarksViewModel addShowMarksViewModel)
+        {
+            await LoadSubjects(addShowMarksViewModel);
+        }
+
+        if (vm is StudentMarksViewModel studentMarksViewModel)
+        {
+            studentMarksViewModel.Student = await GetStudent(User);
+            await studentMarksViewModel.LoadMarksAsync();
+        }
         
         CurrentPage = vmb;
     }
 
-    public ObservableCollection<ListItemTemplate> Items { get; }
+    public ObservableCollection<ListItemTemplate> Items { get; set; }
 
     [RelayCommand]
     private void TriggerPane()
@@ -95,5 +101,68 @@ public partial class NavViewModel : ObservableObject
         LogoutRequested?.Invoke(this, EventArgs.Empty);
     }
 
+    private async Task LoadSubjects(AddShowMarksViewModel addShowMarksViewModel)
+    {
+        await using var dbContext = new SchoolDbContext();
+        var dataHandler = new TeacherDatabase(dbContext);
+        var teacherManager = new TeacherManager(dataHandler);
+
+        var teachers = await teacherManager.GetTeacherUsersAsync();
+        addShowMarksViewModel.Teacher = teachers.FirstOrDefault(x => x.User.Id == User.Id);
+        
+        await addShowMarksViewModel.LoadSubjectsAsync();
+    }
+
+    private async Task<Student> GetStudent(User user)
+    {
+        await using var dbContext = new SchoolDbContext();
+        var dataHandler = new UserDatabase(dbContext);
+        var userManager = new UserManager(dataHandler);
+
+        var student = await userManager.GetStudentByUserAsync(user);
+
+        return student;
+    }
+
     public required EventHandler LogoutRequested { get; set; }
+
+    public void LoadAdminNavigationItems()
+    {
+        Items = new ObservableCollection<ListItemTemplate>([
+            new ListItemTemplate(typeof(FilterUsersViewModel), "PersonRegular",
+                ResourceManager.GetStringOrDefault("Users")),
+
+            new ListItemTemplate(typeof(AddUserViewModel), "PersonRegular",
+                ResourceManager.GetStringOrDefault("AddUser")),
+
+            new ListItemTemplate(typeof(AdminClassesViewModel), "ClassRegular",
+                ResourceManager.GetStringOrDefault("Classes")),
+
+            new ListItemTemplate(typeof(AddSubjectViewModel), "NotepadRegular",
+                ResourceManager.GetStringOrDefault("AddSubject"))
+        ]);
+        
+        SelectedListItem = Items.First();
+    }
+
+    public void LoadTeacherNavigationItems()
+    {
+        Items = new ObservableCollection<ListItemTemplate>([
+            new ListItemTemplate(typeof(AddShowMarksViewModel), "PersonRegular",
+                ResourceManager.GetStringOrDefault("Marks"))
+        ]);
+        
+        SelectedListItem = Items.First();
+    }
+
+    public void LoadStudentNavigationItems()
+    {
+        Items = new ObservableCollection<ListItemTemplate>([
+            new ListItemTemplate(typeof(StudentMarksViewModel), "PersonRegular",
+                ResourceManager.GetStringOrDefault("Marks"))
+        ]);
+        
+        SelectedListItem = Items.First();
+    }
+    
 }

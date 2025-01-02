@@ -5,8 +5,9 @@
              xmlns:vm="clr-namespace:SchoolManagerViewModel;assembly=SchoolManagerViewModel"
              xmlns:converters="clr-namespace:SchoolManagerAvalonia.Converters"
              xmlns:dialogHost="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
+             xmlns:resources="clr-namespace:SchoolManagerModel.Resources;assembly=SchoolManagerModel"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="SchoolManagerAvalonia.Views.AdminView"
+             x:Class="SchoolManagerAvalonia.Views.NavView"
              x:DataType="vm:NavViewModel">
 
     <Design.DataContext>
@@ -88,7 +89,7 @@
                                         <PathIcon
                                             Data="{Binding Source={StaticResource LogoutIcon}, Converter={x:Static converters:TypeConverters.IconConverter}}"
                                             Width="{StaticResource IconWidth}" Height="{StaticResource IconHeight}" />
-                                        <TextBlock Text="Log out" VerticalAlignment="Center" />
+                                        <TextBlock Text="{x:Static resources:UI.Logout}" VerticalAlignment="Center" />
                                     </StackPanel>
                                 </Button.Content>
                             </Button>

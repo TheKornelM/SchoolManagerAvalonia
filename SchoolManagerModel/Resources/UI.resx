@@ -312,4 +312,7 @@
   <data name="Actions" xml:space="preserve">
     <value>Actions</value>
   </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Log out</value>
+  </data>
 </root>

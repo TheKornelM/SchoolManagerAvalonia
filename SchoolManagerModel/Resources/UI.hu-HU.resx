@@ -309,4 +309,7 @@
   <data name="SuccessfullyDeleted" xml:space="preserve">
     <value>Sikeres törlés!</value>
   </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Kijelentkezés</value>
+  </data>
 </root>

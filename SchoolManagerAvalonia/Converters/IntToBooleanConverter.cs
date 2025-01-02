@@ -13,6 +13,11 @@ namespace SchoolManagerAvalonia.Converters
                 return count > 0;
             }
 
+            if (value is bool boolValue)
+            {
+                return boolValue;
+            }
+
             return false;
         }
 
