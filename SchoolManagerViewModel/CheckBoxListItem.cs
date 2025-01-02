@@ -1,13 +1,12 @@
 ﻿using System.ComponentModel;
-using SchoolManagerModel.Entities;
 
 namespace SchoolManagerViewModel;
 
-public class CheckBoxListItem : INotifyPropertyChanged
+public class CheckBoxListItem<T> : INotifyPropertyChanged
 {
     private bool _isChecked;
 
-    public required Subject Item { get; set; }
+    public required T Item { get; set; }
 
     public bool IsChecked
     {

@@ -5,12 +5,10 @@ using System.Collections.ObjectModel;
 
 namespace SchoolManagerViewModel;
 
-public class StudentMarksViewModel() : ViewModelBase
+public class StudentMarksViewModel(Student student) : ViewModelBase
 {
     #region Private fields
     private ObservableCollection<DetailedMarkViewModel> _marks = [];
-    public Student Student { get; set; }
-
     #endregion
 
     #region Public properties
@@ -30,7 +28,7 @@ public class StudentMarksViewModel() : ViewModelBase
         using var dbContext = new SchoolDbContext();
         var subjectManager = new SubjectManager(new SubjectDatabase(dbContext));
 
-        var result = await subjectManager.GetStudentMarksAsync(Student);
+        var result = await subjectManager.GetStudentMarksAsync(student);
 
         _marks.Clear();
 

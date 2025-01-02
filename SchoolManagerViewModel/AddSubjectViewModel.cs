@@ -4,9 +4,6 @@ using SchoolManagerModel.Managers;
 using SchoolManagerModel.Persistence;
 using SchoolManagerViewModel.Commands;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
-using SchoolManagerModel.Utils;
-using SchoolManagerModel.Validators;
 
 namespace SchoolManagerViewModel;
 
@@ -15,10 +12,9 @@ public class AddSubjectViewModel : ViewModelBase
     #region Private fields
     private Class? _selectedClass;
     private Teacher? _selectedTeacher;
-    private ObservableCollection<Class> _classes = [];
-    private ObservableCollection<Teacher> _teachers = [];
+    private ObservableCollection<Class> _classes = new();
+    private ObservableCollection<Teacher> _teachers = new();
     private string _subjectName = string.Empty;
-    private string _subjectNameValidationErrors = string.Empty;
 
     #endregion
 
@@ -63,21 +59,9 @@ public class AddSubjectViewModel : ViewModelBase
         set
         {
             SetField(ref _subjectName, value, nameof(SubjectName));
-
-            var resourceManager = UIResourceFactory.GetNewResource();
-            var validator = new NotEmptyValidator(resourceManager);
-            
-            SubjectNameValidationErrors = ValidationErrors.GetErrorsFormatted(validator.Validate(SubjectName));
             AddSubjectCommand.NotifyCanExecuteChanged();
         }
     }
-
-    public string SubjectNameValidationErrors
-    {
-        get => _subjectNameValidationErrors;
-        set => SetField(ref _subjectNameValidationErrors, value, nameof(SubjectNameValidationErrors));
-    }
-
 
     public Action? SuccessfulAdd { get; set; }
     public Action<string>? FailedAdd { get; set; }
@@ -88,6 +72,9 @@ public class AddSubjectViewModel : ViewModelBase
     {
         AddSubjectCommand = new AddSubjectCommand(this);
     }
+    #endregion
+
+    #region Private methods
     #endregion
 
     #region Public methods

@@ -297,22 +297,4 @@
   <data name="ResetFilters" xml:space="preserve">
     <value>Szűrők törlése</value>
   </data>
-  <data name="NoAddedStudent" xml:space="preserve">
-    <value>Nincs hozzáadott tanuló ehhez az osztályhoz.</value>
-  </data>
-  <data name="Delete" xml:space="preserve">
-    <value>Törlés</value>
-  </data>
-  <data name="Actions" xml:space="preserve">
-    <value>Műveletek</value>
-  </data>
-  <data name="SuccessfullyDeleted" xml:space="preserve">
-    <value>Sikeres törlés!</value>
-  </data>
-  <data name="Logout" xml:space="preserve">
-    <value>Kijelentkezés</value>
-  </data>
-  <data name="Subjects" xml:space="preserve">
-    <value>Tantárgyak</value>
-  </data>
 </root>

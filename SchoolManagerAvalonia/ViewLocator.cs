@@ -1,49 +1,30 @@
+using System;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
-using SchoolManagerViewModel;
-using System;
-using System.Collections.Generic;
-using SchoolManagerAvalonia.Views;
-
+using SchoolManagerAvalonia.ViewModels;
 
 namespace SchoolManagerAvalonia;
 
 public class ViewLocator : IDataTemplate
 {
-    private readonly Dictionary<Type, Func<Control?>> _locator = new();
-
-    public ViewLocator()
+    public Control? Build(object? param)
     {
-        RegisterViewFactory<FilterUsersViewModel, UsersView>();
-        RegisterViewFactory<AdminClassesViewModel, AdminClassesView>();
-        RegisterViewFactory<AddSubjectViewModel, AddSubjectView>();
-        RegisterViewFactory<AddUserViewModel, AddUserView>();
-        RegisterViewFactory<AddShowMarksViewModel, AddShowMarksView>();
-        RegisterViewFactory<StudentMarksViewModel, ShowMarksView>();
-    }
+        if (param is null)
+            return null;
 
-    public Control? Build(object? data)
-    {
-        if (data is null)
+        var name = param.GetType().FullName!.Replace("ViewModel", "View", StringComparison.Ordinal);
+        var type = Type.GetType(name);
+
+        if (type != null)
         {
-            return new TextBlock { Text = "No VM provided" };
+            return (Control)Activator.CreateInstance(type)!;
         }
-        _locator.TryGetValue(data.GetType(), out var factory);
 
-        return factory?.Invoke() ?? new TextBlock { Text = $"VM Not Registered: {data.GetType()}" };
+        return new TextBlock { Text = "Not Found: " + name };
     }
 
     public bool Match(object? data)
     {
         return data is ViewModelBase;
     }
-
-    private void RegisterViewFactory<TViewModel, TView>()
-      where TViewModel : class
-      where TView : Control
-      => _locator.Add(
-          typeof(TViewModel), Activator.CreateInstance<TView>);
-    /*Design.IsDesignMode
-        ? Activator.CreateInstance<TView>
-        : Ioc.Default.GetService<TView>);*/
 }

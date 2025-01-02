@@ -32,29 +32,4 @@ public class ClassManager(IAsyncClassDataHandler dataHandler)
         return await dataHandler.GetClassSubjectsAsync(cls);
     }
 
-    public async Task<Class?> GetClassByIdAsync(int classId)
-    {
-        return await dataHandler.GetClassByIdAsync(classId);
-    }
-
-    public async Task DeleteClassAsync(Class cls)
-    {
-        var studentsTask = dataHandler.GetClassStudentsAsync(cls);
-        var subjectsTask = dataHandler.GetClassSubjectsAsync(cls);
-        
-        await Task.WhenAll(studentsTask, subjectsTask);
-
-        if (studentsTask.Result.Count != 0)
-        {
-            throw new Exception("Cannot delete class which contains students");
-        }
-
-        if (subjectsTask.Result.Count != 0)
-        {
-            throw new Exception("Cannot delete class which contains subjects");
-        }
-
-        await dataHandler.DeleteClassAsync(cls);
-    }
-
 }

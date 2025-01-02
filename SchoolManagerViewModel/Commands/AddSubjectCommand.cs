@@ -54,6 +54,6 @@ public class AddSubjectCommand : ICommand
     {
         return _addSubjectViewModel.SelectedClass != null &&
             _addSubjectViewModel.SelectedTeacher != null &&
-            !string.IsNullOrEmpty(_addSubjectViewModel.SubjectName.Trim());
+            !string.IsNullOrEmpty(_addSubjectViewModel.SubjectName);
     }
 }

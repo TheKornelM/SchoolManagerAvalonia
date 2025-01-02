@@ -39,7 +39,6 @@ public class ValidatedUserViewModel : ViewModelBase
         {
             SetField(ref _password, value, nameof(Password));
             ValidatePassword();
-            ValidateConfirmPassword();
         }
     }
 

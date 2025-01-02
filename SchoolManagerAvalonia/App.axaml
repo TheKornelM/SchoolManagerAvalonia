@@ -1,17 +1,9 @@
 <Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="using:SchoolManagerAvalonia"
-             xmlns:dialogHostAvalonia="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
              x:Class="SchoolManagerAvalonia.App"
-             RequestedThemeVariant="Default"
-             xmlns:resx="clr-namespace:SchoolManagerModel.Resources;assembly=SchoolManagerModel"
-             >
+             RequestedThemeVariant="Default">
              <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
-
-	<Application.Resources>
-		<x:Double x:Key="BaseFontSize">20</x:Double>
-		
-	</Application.Resources>
 
     <Application.DataTemplates>
         <local:ViewLocator/>
@@ -19,50 +11,5 @@
 
     <Application.Styles>
         <FluentTheme />
-		<StyleInclude Source="avares://SchoolManagerAvalonia/Assets/Icons.axaml" />
-		<dialogHostAvalonia:DialogHostStyles />
-        <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>
-		
-			<!-- Default Font Size -->
-        <Style Selector="Label, TextBox">
-	        <Setter Property="FontSize" Value="{StaticResource BaseFontSize}" />
-        </Style>
-        
-        <Style Selector="TextBlock">
-	        <Setter Property="FontSize" Value="{StaticResource BaseFontSize}"/>
-        </Style>
-
-		<Style Selector="Label.h1">
-			<Setter Property="FontSize" Value="36"/>
-		</Style>
-
-			<!-- Centered Buttons -->
-			<Style Selector="Button">
-				<Setter Property="FontSize" Value="28"/>
-				<Setter Property="HorizontalContentAlignment" Value="Center" />
-				<Setter Property="VerticalContentAlignment" Value="Center" />
-			</Style>
-        
-        <Style Selector="Button.delete">
-	        <Setter Property="Background" Value="DarkRed"/>
-	        <Setter Property="Foreground" Value="White"/>
-	        <Setter Property="ContentTemplate">
-		        <Setter.Value>
-			        <DataTemplate>
-				        <StackPanel Orientation="Horizontal" Spacing="5" VerticalAlignment="Center" HorizontalAlignment="Center">
-					        <TextBlock Text="{x:Static resx:UI.Delete}" Foreground="White" VerticalAlignment="Center"/>
-				        </StackPanel>
-			        </DataTemplate>
-		        </Setter.Value>
-	        </Setter>
-        </Style>
-        
-        <Style Selector="Button.basic">
-	        <Setter Property="Background" Value="DarkBlue"/>
-	        <Setter Property="Foreground" Value="White"/>
-        </Style>
-
-
-	</Application.Styles>
-
+    </Application.Styles>
 </Application>

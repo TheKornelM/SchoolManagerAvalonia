@@ -4,7 +4,6 @@ using SchoolManagerModel.Persistence;
 using SchoolManagerViewModel.Commands;
 using SchoolManagerViewModel.EntityViewModels;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 
 namespace SchoolManagerViewModel;
 
@@ -18,7 +17,7 @@ public class AddUserViewModel : ViewModelBase
     private Role _selectedRole = Role.Student;
     private Class? _class;
     private ObservableCollection<Class> _classes = [];
-    private ObservableCollection<CheckBoxListItem> _subjects = [];
+    private ObservableCollection<CheckBoxListItem<Subject>> _subjects = [];
     private bool _hasSelectedClass;
 
     #endregion
@@ -70,7 +69,7 @@ public class AddUserViewModel : ViewModelBase
         }
     }
 
-    public ObservableCollection<CheckBoxListItem> Subjects
+    public ObservableCollection<CheckBoxListItem<Subject>> Subjects
     {
         get => _subjects;
         set => SetField(ref _subjects, value, nameof(Subjects));
@@ -79,11 +78,7 @@ public class AddUserViewModel : ViewModelBase
     public bool AllSubjectsSelected
     {
         get => _allSubjectsSelected;
-        set
-        {
-            SetField(ref _allSubjectsSelected, value, nameof(AllSubjectsSelected));
-            Debug.WriteLine(AllSubjectsSelected);
-        }
+        set => SetField(ref _allSubjectsSelected, value, nameof(AllSubjectsSelected));
     }
 
     public bool ResetPassword
@@ -140,7 +135,7 @@ public class AddUserViewModel : ViewModelBase
         Subjects.Clear();
         foreach (var subject in subjects)
         {
-            Subjects.Add(new CheckBoxListItem { Item = subject });
+            Subjects.Add(new CheckBoxListItem<Subject> { Item = subject });
         }
     }
 

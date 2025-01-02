@@ -3,7 +3,6 @@ using SchoolManagerModel.Managers;
 using SchoolManagerModel.Persistence;
 using SchoolManagerViewModel.Commands;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 
 namespace SchoolManagerViewModel;
 public class FilterUsersViewModel : ViewModelBase
@@ -54,7 +53,6 @@ public class FilterUsersViewModel : ViewModelBase
     public FilterUsersViewModel()
     {
         ResetUserFilterCommand = new(this);
-       // LoadUsers();
         PropertyChanged += async (_, e) =>
         {
             if (e.PropertyName == nameof(Users))
@@ -83,12 +81,7 @@ public class FilterUsersViewModel : ViewModelBase
         var userDatabase = new UserDatabase(dbContext);
         var userManager = new UserManager(userDatabase);
 
-        var users = await userManager.FilterUsersAsync(UsernameFilter.Trim(), FirstNameFilter.Trim(), LastNameFilter.Trim(), EmailFilter.Trim());
+        var users = await userManager.FilterUsersAsync(UsernameFilter, FirstNameFilter, LastNameFilter, EmailFilter);
         SetField(ref _users, new ObservableCollection<UserDto>(users), nameof(Users));
-    }
-
-    private async void LoadUsers()
-    {
-        await LoadAllUser();
     }
 }

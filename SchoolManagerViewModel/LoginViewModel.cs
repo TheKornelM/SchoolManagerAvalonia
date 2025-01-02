@@ -1,6 +1,6 @@
-﻿using SchoolManagerModel.Entities.UserModel;
+﻿using System.Windows.Input;
+using SchoolManagerModel.Entities.UserModel;
 using SchoolManagerViewModel.Commands;
-using System.Windows.Input;
 
 namespace SchoolManagerViewModel;
 
