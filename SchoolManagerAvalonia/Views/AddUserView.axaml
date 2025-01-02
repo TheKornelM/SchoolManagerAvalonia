@@ -15,113 +15,100 @@
         <converters:RoleToIntConverter x:Key="RoleToIntConverter" />
         <converters:IntToBooleanConverter x:Key="IntToBooleanConverter" />
     </UserControl.Resources>
+
     <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <Grid Margin="30,30,30,30"
-              ColumnDefinitions="45*,30,45*">
-            <Grid RowDefinitions="auto,auto,auto,auto,auto,auto,auto,auto,30,auto">
+        <Grid>
+            <StackPanel Spacing="15" HorizontalAlignment="Stretch">
+                <!-- Header -->
+                <Label Classes="h1" Content="{x:Static resx:UI.AddUser}" HorizontalAlignment="Left" />
+
+                <!-- User Input Fields -->
                 <controls:ValidatedTextBox LabelContent="{x:Static resx:UI.Username}"
-                                         FieldValue="{Binding User.Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                         ValidationError="{Binding User.UsernameValidatorErrors}"
-                                         Grid.Row="0" />
-                
+                                           FieldValue="{Binding User.Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                           ValidationError="{Binding User.UsernameValidatorErrors}" />
+
                 <controls:ValidatedTextBox LabelContent="{x:Static resx:UI.FirstName}"
                                            FieldValue="{Binding User.FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                           ValidationError="{Binding User.FirstNameValidatorErrors}"
-                                           Grid.Row="1" />
+                                           ValidationError="{Binding User.FirstNameValidatorErrors}" />
 
                 <controls:ValidatedTextBox LabelContent="{x:Static resx:UI.LastName}"
                                            FieldValue="{Binding User.LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                           ValidationError="{Binding User.LastNameValidatorErrors}"
-                                           Grid.Row="2" />
+                                           ValidationError="{Binding User.LastNameValidatorErrors}" />
 
                 <controls:ValidatedPasswordField LabelContent="{x:Static resx:UI.Password}"
                                                  Password="{Binding User.Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                 ValidationError="{Binding User.PasswordValidatorErrors}"
-                                                 Grid.Row="3"
-                                                 x:Name="PasswordField" />
+                                                 ValidationError="{Binding User.PasswordValidatorErrors}" />
 
                 <controls:ValidatedPasswordField LabelContent="{x:Static resx:UI.ConfirmPassword}"
                                                  Password="{Binding User.ConfirmPassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                 ValidationError="{Binding User.ConfirmPasswordValidatorErrors}"
-                                                 Grid.Row="4"
-                                                 x:Name="ConfirmPasswordField" />
+                                                 ValidationError="{Binding User.ConfirmPasswordValidatorErrors}" />
 
                 <controls:ValidatedTextBox LabelContent="{x:Static resx:UI.EmailAddress}"
                                            FieldValue="{Binding User.Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                           ValidationError="{Binding User.EmailValidatorErrors}"
-                                           Grid.Row="5" />
+                                           ValidationError="{Binding User.EmailValidatorErrors}" />
 
-                <Label Grid.Row="6"
-                       Content="{x:Static resx:UI.Role}"></Label>
-                <ComboBox Grid.Row="7"
-                          SelectedIndex="{Binding SelectedRole, Converter={StaticResource RoleToIntConverter}}" HorizontalAlignment="Stretch" >
-                    <ComboBoxItem Content="{x:Static resx:UI.Student}" />
-                    <ComboBoxItem Content="{x:Static resx:UI.Teacher}" />
-                    <ComboBoxItem Content="{x:Static resx:UI.Administrator}" />
-                </ComboBox>
+                <!-- Role Selection -->
+                <StackPanel Margin="0,0,0,30">
+                    <Label Content="{x:Static resx:UI.Role}" />
+                    <ComboBox SelectedIndex="{Binding SelectedRole, Converter={StaticResource RoleToIntConverter}}"
+                              HorizontalAlignment="Stretch">
+                        <ComboBoxItem Content="{x:Static resx:UI.Student}" />
+                        <ComboBoxItem Content="{x:Static resx:UI.Teacher}" />
+                        <ComboBoxItem Content="{x:Static resx:UI.Administrator}" />
+                    </ComboBox>
+                </StackPanel>
 
+
+                <!-- Conditional Student-Specific UI -->
+                <StackPanel Spacing="40" IsVisible="{Binding IsStudent}" HorizontalAlignment="Stretch">
+                    <!-- Class Selection -->
+                    <StackPanel>
+                        <Label Content="{x:Static resx:UI.Class}" />
+                        <ComboBox ItemsSource="{Binding Classes}"
+                                  SelectedItem="{Binding Class}"
+                                  DisplayMemberBinding="{Binding Name}" />
+                    </StackPanel>
+
+
+                    <!-- Subjects Selection -->
+                    <StackPanel Spacing="15">
+                        <StackPanel>
+                            <Label Content="{x:Static resx:UI.AssignedSubjects}"
+                                   IsVisible="{Binding Subjects.Count, Converter={StaticResource IntToBooleanConverter}}" />
+                            <controls:CheckBoxList
+                                Objects="{Binding Subjects, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                AllSubjectsSelected="{Binding AllSubjectsSelected, Mode=TwoWay}"
+                                IsVisible="{Binding Subjects.Count, Converter={StaticResource IntToBooleanConverter}}" />
+                        </StackPanel>
+                      
+                        <!-- Select All/Unselect All Button -->
+                        <Button Command="{Binding SelectAllSubjectsCommand}"
+                                MinHeight="50"
+                                HorizontalAlignment="Stretch"
+                                Classes.AllSelected="{Binding AllSubjectsSelected}"
+                                Classes.NotAllSelected="{Binding !AllSubjectsSelected}">
+                            <Button.Styles>
+                                <Style Selector="Button.AllSelected">
+                                    <Setter Property="Content"
+                                            Value="{x:Static resx:UI.UnselectAll}" />
+                                </Style>
+                                <Style Selector="Button.NotAllSelected">
+                                    <Setter Property="Content"
+                                            Value="{x:Static resx:UI.SelectAll}" />
+                                </Style>
+                            </Button.Styles>
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+
+                <!-- Add User Button -->
                 <Button Content="{x:Static resx:UI.AddUser}"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Top"
+                        HorizontalAlignment="Stretch"
                         Height="50"
-                        MinWidth="200"
-                        Grid.Row="9"
-                        Padding="10"
                         Command="{Binding AddUserCommand}" />
-            </Grid>
 
-            <Grid Grid.Column="2"
-                  IsVisible="{Binding IsStudent}">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="30" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="30" />
-                    <RowDefinition Height="auto" />
-                </Grid.RowDefinitions>
-                <Label Content="{x:Static resx:UI.Class}"
-                       Grid.Row="0" />
-                <ComboBox Grid.Row="1"
-                          ItemsSource="{Binding Classes}"
-                          SelectedItem="{Binding Class}" DisplayMemberBinding="{Binding Name}"/>
-                <Grid Grid.Row="3"
-                      Grid.RowSpan="3"
-                      Grid.Column="1"
-                      IsVisible="{Binding Subjects.Count, Converter={StaticResource IntToBooleanConverter}}">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto" />
-                        <RowDefinition Height="auto" />
-                        <RowDefinition Height="auto" />
-                        <RowDefinition Height="auto" />
-                        <RowDefinition Height="30" />
-                        <RowDefinition Height="auto" />
-                    </Grid.RowDefinitions>
-                    <Label Content="{x:Static resx:UI.AssignedSubjects}"
-                           Grid.Row="0" />
-                    <controls:CheckBoxList Objects="{Binding Subjects, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                           Grid.Row="2"
-                                           AllSubjectsSelected="{Binding AllSubjectsSelected, Mode=TwoWay}" />
-                    <Button Grid.Row="5"
-                            Command="{Binding SelectAllSubjectsCommand}"
-                            MinHeight="50"
-                            MaxWidth="200" Classes.AllSelected="{Binding AllSubjectsSelected}" Classes.NotAllSelected="{Binding !AllSubjectsSelected}">
-                        <Button.Styles>
-                            <Style Selector="Button.AllSelected">
-                                <Setter Property="Content"
-                                Value="{x:Static resx:UI.UnselectAll}" />
-                            </Style>
-                            <Style Selector="Button.NotAllSelected">
-                                <Setter Property="Content"
-                                        Value="{x:Static resx:UI.SelectAll}" />
-                            </Style>
-                        </Button.Styles>
-                    </Button>
-                </Grid>
-            </Grid>
-            <dialogHostAvalonia:DialogHost Identifier="MainDialogHost" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="3"/>
+            </StackPanel>
+            <dialogHostAvalonia:DialogHost Identifier="MainDialogHost"/>
         </Grid>
     </ScrollViewer>
 </UserControl>
