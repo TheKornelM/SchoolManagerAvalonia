@@ -312,4 +312,7 @@
   <data name="Logout" xml:space="preserve">
     <value>Kijelentkezés</value>
   </data>
+  <data name="Subjects" xml:space="preserve">
+    <value>Tantárgyak</value>
+  </data>
 </root>

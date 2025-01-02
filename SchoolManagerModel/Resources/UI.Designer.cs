@@ -555,6 +555,15 @@ namespace SchoolManagerModel.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Subjects.
+        /// </summary>
+        public static string Subjects {
+            get {
+                return ResourceManager.GetString("Subjects", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Successfully added!.
         /// </summary>
         public static string SuccessfullyAdded {

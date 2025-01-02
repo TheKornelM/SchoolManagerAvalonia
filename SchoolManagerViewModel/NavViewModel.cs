@@ -148,8 +148,8 @@ public partial class NavViewModel : ObservableObject
     public void LoadTeacherNavigationItems()
     {
         Items = new ObservableCollection<ListItemTemplate>([
-            new ListItemTemplate(typeof(AddShowMarksViewModel), "PersonRegular",
-                ResourceManager.GetStringOrDefault("Marks"))
+            new ListItemTemplate(typeof(AddShowMarksViewModel), "NotepadRegular",
+                ResourceManager.GetStringOrDefault("Subjects"))
         ]);
         
         SelectedListItem = Items.First();
@@ -158,7 +158,7 @@ public partial class NavViewModel : ObservableObject
     public void LoadStudentNavigationItems()
     {
         Items = new ObservableCollection<ListItemTemplate>([
-            new ListItemTemplate(typeof(StudentMarksViewModel), "PersonRegular",
+            new ListItemTemplate(typeof(StudentMarksViewModel), "NotepadRegular",
                 ResourceManager.GetStringOrDefault("Marks"))
         ]);
         

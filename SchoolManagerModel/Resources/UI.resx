@@ -315,4 +315,7 @@
   <data name="Logout" xml:space="preserve">
     <value>Log out</value>
   </data>
+  <data name="Subjects" xml:space="preserve">
+    <value>Subjects</value>
+  </data>
 </root>
