@@ -18,6 +18,7 @@ public class ViewLocator : IDataTemplate
         RegisterViewFactory<AdminClassesViewModel, AdminClassesView>();
         RegisterViewFactory<AddSubjectViewModel, AddSubjectView>();
         RegisterViewFactory<AddUserViewModel, AddUserView>();
+        RegisterViewFactory<AddShowMarksViewModel, AddShowMarksView>();
     }
 
     public Control? Build(object? data)

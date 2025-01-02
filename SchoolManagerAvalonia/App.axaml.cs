@@ -69,15 +69,27 @@ public partial class App : Application
             {
                 LogoutRequested = LogoutRequested
             };
+            
+            navViewModel.LoadAdminNavigationItems();
 
-            ShowManagerWindow(new AdminView(admin)
+            ShowManagerWindow(new AdminView(admin.User)
             {
                 DataContext = navViewModel
             });
         };
         vm.ShowTeacherInterface = (teacher) =>
         {
-            ShowManagerWindow(new TeacherView(teacher));
+            var navViewModel = new NavViewModel(teacher.User)
+            {
+                LogoutRequested = LogoutRequested
+            };
+            
+            navViewModel.LoadTeacherNavigationItems();
+            
+            ShowManagerWindow(new AdminView(teacher.User)
+            {
+                DataContext = navViewModel
+            });
         };
 
         return vm;
@@ -106,8 +118,6 @@ public partial class App : Application
 
     public void ShowLoginView()
     {
-        Debug.WriteLine(CultureInfo.CurrentCulture);
-
         var view = new LoginView()
         {
             DataContext = getLoginViewModel()

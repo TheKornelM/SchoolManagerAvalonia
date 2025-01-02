@@ -5,7 +5,7 @@ namespace SchoolManagerAvalonia.Views;
 
 public partial class AdminView : UserControl
 {
-    public AdminView(Admin admin) : this()
+    public AdminView(User user) : this()
     {
 
     }
@@ -14,9 +14,5 @@ public partial class AdminView : UserControl
     {
         InitializeComponent();
     }
-
-    private void ListBox_PointerPressed_1(object? sender, Avalonia.Input.TappedEventArgs e)
-    {
-
-    }
+    
 }
